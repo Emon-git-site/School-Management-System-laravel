@@ -1,10 +1,8 @@
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
     <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-        <img src="{{ asset('admin') }}/dist/img/AdminLTELogo.png" alt="AdminLTE Logo"
-            class="brand-image img-circle elevation-3" style="opacity: .8">
-        <span class="brand-text font-weight-light">AdminLTE 3</span>
-    </a>
+    <a href="javascript:void(0);" class="brand-link" style="text-align: center">
+        <span class="brand-text font-weight-light" style="font-weight: bold !important; font-size: 20px;">School</span>
+    </a>    
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -25,7 +23,7 @@
                 data-accordion="false">
                 @if(Auth::user()->user_type == 1)
                 <li class="nav-item">
-                    <a href="{{ route('admin.dashboard') }}" class="nav-link">
+                    <a href="{{ route('admin.dashboard') }}" class="nav-link @if(Request::segment(2) == 'dashboard') active @endif">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -33,7 +31,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{ route('admin.admin.list') }}" class="nav-link">
+                    <a href="{{ route('admin.admin.list') }}" class="nav-link @if(Request::segment(2) == 'admin') active @endif">
                         <i class="nav-icon far fa-user"></i>
                         <p>
                             Admin
@@ -42,7 +40,7 @@
                 </li>
                 @elseif(Auth::user()->user_type == 2)
                 <li class="nav-item">
-                    <a href="{{ route('teacher.dashboard') }}" class="nav-link">
+                    <a href="{{ route('teacher.dashboard') }}" class="nav-link @if(Request::segment(2) == 'dashboard') active @endif">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -51,7 +49,7 @@
                 </li>
                 @elseif(Auth::user()->user_type == 3)
                 <li class="nav-item">
-                    <a href="{{ route('student.dashboard') }}" class="nav-link">
+                    <a href="{{ route('student.dashboard') }}" class="nav-link @if(Request::segment(2) == 'dashboard') active @endif">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
@@ -60,7 +58,7 @@
                 </li>
                 @elseif(Auth::user()->user_type == 4)
                 <li class="nav-item">
-                    <a href="{{ route('parent.dashboard') }}" class="nav-link">
+                    <a href="{{ route('parent.dashboard') }}" class="nav-link @if(Request::segment(2) == 'dashboard') active @endif">
                         <i class="nav-icon fas fa-tachometer-alt"></i>
                         <p>
                             Dashboard
