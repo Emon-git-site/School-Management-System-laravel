@@ -10,7 +10,6 @@ class AuthController extends Controller
 {
     public function login()
     {
-        // dd(Hash::make('1'));
         if(!empty(Auth::check()))
         {
             if(Auth::user()->user_type == 1)
