@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Support\Facades\Route;
@@ -24,12 +25,15 @@ Route::post('/forget-password', [AuthController::class, 'forgetPasswordPerform']
 Route::get('/reset/{token}', [AuthController::class, 'reset']);
 Route::post('/reset/{token}', [AuthController::class, 'PostReset'])->name('reset');
 
-Route::get('admin/admin/list', function () {
-    return view('admin.admin.list');
-})->name('admin.admin.list');
 
 Route::group(['middleware' => 'admin'], function(){
     Route::get('admin/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('admin/admin/list', [AdminController::class, 'list'])->name('admin.admin.list');
+    Route::get('admin/admin/add', [AdminController::class, 'add'])->name('admin.admin.add.show');
+    Route::post('admin/admin/add', [AdminController::class, 'insert'])->name('admin.admin.add.perform');
+    Route::get('admin/admin/edit/{id}', [AdminController::class, 'edit']);
+    Route::post('admin/admin/update/{admin}', [AdminController::class, 'update']);
+    Route::get('admin/admin/delete/{admin}', [AdminController::class, 'destroy']);
 
 }); 
 Route::group(['middleware' => 'teacher'], function(){
