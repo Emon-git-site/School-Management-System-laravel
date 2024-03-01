@@ -16,11 +16,13 @@
                     <div class="card-body">
                         <div class="form-group">
                             <label for="name">Name</label>
-                            <input type="name" class="form-control" name="name" value="{{ $admin->name }}" required>
+                            <input type="name" class="form-control" name="name" value="{{ old('name', $admin->name) }}" required>
                         </div>
                         <div class="form-group">
                             <label for="email">Email address</label>
-                            <input type="email" class="form-control" name="email" value="{{ $admin->email }}" required>
+                            <input type="email" class="form-control" name="email" value="{{ old('$admin->email', $admin->email) }}" required>
+                            <div style="color: red">{{ $errors->first('email') }}</div>
+
                         </div>
                         <div class="form-group">
                             <label for="password">Password</label>
