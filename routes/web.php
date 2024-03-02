@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\ClassController;
+use App\Http\Controllers\admin\SubjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,6 +44,14 @@ Route::group(['middleware' => 'admin'], function(){
     Route::get('admin/class/edit/{id}', [ClassController::class, 'edit']);
     Route::post('admin/class/update/{classe}', [ClassController::class, 'update']);
     Route::get('admin/class/delete/{classe}', [ClassController::class, 'destroy']);
+
+    // subject route
+    Route::get('admin/subject/list', [SubjectController::class, 'list'])->name('admin.subject.list');
+    Route::get('admin/subject/add', [SubjectController::class, 'add'])->name('admin.subject.add.show');
+    Route::post('admin/subject/add', [SubjectController::class, 'insert'])->name('admin.subject.add.perform');
+    Route::get('admin/subject/edit/{id}', [SubjectController::class, 'edit']);
+    Route::post('admin/subject/update/{subject}', [SubjectController::class, 'update']);
+    Route::get('admin/subject/delete/{subject}', [SubjectController::class, 'destroy']);
 
 }); 
 Route::group(['middleware' => 'teacher'], function(){
