@@ -1,9 +1,10 @@
 <?php
 
-use App\Http\Controllers\AdminController;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
-use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\ClassController;
 
 /*
 |--------------------------------------------------------------------------
@@ -34,6 +35,14 @@ Route::group(['middleware' => 'admin'], function(){
     Route::get('admin/admin/edit/{id}', [AdminController::class, 'edit']);
     Route::post('admin/admin/update/{admin}', [AdminController::class, 'update']);
     Route::get('admin/admin/delete/{admin}', [AdminController::class, 'destroy']);
+
+    // class route
+    Route::get('admin/class/list', [ClassController::class, 'list'])->name('admin.class.list');
+    Route::get('admin/class/add', [ClassController::class, 'add'])->name('admin.class.add.show');
+    Route::post('admin/class/add', [ClassController::class, 'insert'])->name('admin.class.add.perform');
+    Route::get('admin/class/edit/{id}', [ClassController::class, 'edit']);
+    Route::post('admin/class/update/{classe}', [ClassController::class, 'update']);
+    Route::get('admin/class/delete/{classe}', [ClassController::class, 'destroy']);
 
 }); 
 Route::group(['middleware' => 'teacher'], function(){

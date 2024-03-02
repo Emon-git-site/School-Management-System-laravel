@@ -6,10 +6,10 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Admin List (Total: {{ $admins->total() }})</h1>
+                        <h1>Class List </h1>
                     </div>
                     <div class="col-sm-6" style="text-align: right">
-                        <a href="{{ route('admin.admin.add.show') }}" class="btn btn-primary">Add New Admin</a>
+                        <a href="{{ route('admin.class.add.show') }}" class="btn btn-primary">Add New Class</a>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
@@ -21,7 +21,7 @@
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Search Admin</h3>
+                        <h3 class="card-title">Search Class</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -31,17 +31,14 @@
                                 <input type="text" class="form-control" name="name" value="{{ Request::get('name') }}"
                                     placeholder="Enter Name">
                             </div>
-                            <div class="form-group  col-md-3">
-                                <input type="text" class="form-control" name="email"
-                                    value="{{ Request::get('email') }}" placeholder="Enter Email">
-                            </div>
+
                             <div class="form-group  col-md-3">
                                 <input type="date" class="form-control" name="date"
                                     value="{{ Request::get('date') }}">
                             </div>
                             <div class="form-group col-md-3 d-flex align-items-center">
                                 <button class="btn btn-primary btn-outlook mr-2" type="submit">Search</button>
-                                <a href="{{ route('admin.admin.list') }}" class="btn btn-success btn-outlook"
+                                <a href="{{ route('admin.class.list') }}" class="btn btn-success btn-outlook"
                                     role="button">Reset</a>
                             </div>
                         </div>
@@ -54,7 +51,7 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h3 class="card-title">Admin list</h3>
+                                <h3 class="card-title">Class list</h3>
                                 <div class="card-tools">
                                 </div>
                             </div>
@@ -65,22 +62,30 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Name</th>
-                                            <th>Email</th>
+                                            <th>Status</th>
+                                            <th>Created By</th>
                                             <th>Created Date</th>
                                             <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        @foreach ($admins as $admin)
+                                        @foreach ($classe as $row)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $admin->name }}</td>
-                                                <td>{{ $admin->email }}</td>
-                                                <td>{{ date('d-m-Y h:i A', strtotime($admin->created_at)) }}</td>
+                                                <td>{{ $row->name }}</td>
                                                 <td>
-                                                    <a href="{{ url('admin/admin/edit/' . $admin->id) }}"
+                                                    @if ($row->status == 0)
+                                                        Active
+                                                    @else 
+                                                    InActive
+                                                    @endif
+                                                </td>
+                                                <td>{{ $row->created_by_name }}</td>
+                                                <td>{{ date('d-m-Y H:i A', strtotime($row->created_at)) }}</td>
+                                                <td>
+                                                    <a href="{{ url('admin/class/edit/' . $row->id) }}"
                                                         class="btn btn-primary">Edit</a>
-                                                    <a href="{{ url('admin/admin/delete/' . $admin->id) }}"
+                                                    <a href="{{ url('admin/class/delete/' . $row->id) }}"
                                                         class="btn btn-danger">Delete</a>
                                                 </td>
                                             </tr>
@@ -88,7 +93,7 @@
                                     </tbody>
                                 </table>
                                 <div style="padding: 10px; float:right">
-                                    {!! $admins->appends(Request::except('page'))->links() !!}
+                                    {!! $classe->appends(Request::except('page'))->links() !!}
                                 </div>
                             </div>
                             <!-- /.card-body -->

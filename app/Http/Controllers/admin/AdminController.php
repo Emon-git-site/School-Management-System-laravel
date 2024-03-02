@@ -1,17 +1,17 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\admin;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
 use Illuminate\Support\Facades\Hash;
 
 class AdminController extends Controller
 {
     public function list()
     {
-        // dd(request('email'));
-        // dd(request('name'));
         $data['header_title'] = 'Admin List';
         // $data['admins'] = User::where('user_type', 1)->where('is_delete', 0)->latest()->paginate(2);
         $data['admins'] = User::getAdmin();
@@ -43,7 +43,7 @@ class AdminController extends Controller
         $data['admin'] = User::where('user_type', 1)->where('id', $id)->first();
         if(!empty($data['admin']))
         {
-            $data['header_title'] = "Edit New Admin";
+            $data['header_title'] = "Edit Admin";
             return view('admin.admin.edit', $data);
         }
         else
