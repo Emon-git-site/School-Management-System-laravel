@@ -37,4 +37,15 @@ class Subject extends Model
             ->paginate(20);
         return $return;
     }
+
+    static public function getSubjectAssign()
+    {
+        $return  = Subject::select('subjects.*')
+            ->join('users', 'users.id', 'subjects.created_by')
+            ->where('subjects.is_delete', 0)
+            ->where('subjects.status', 0)
+            ->orderBy('subjects.name', 'asc')
+            ->get();
+        return $return;
+    }
 }

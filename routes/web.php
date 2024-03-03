@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\admin\AdminController;
+use App\Http\Controllers\admin\Class_subjectController;
 use App\Http\Controllers\admin\ClassController;
 use App\Http\Controllers\admin\SubjectController;
 
@@ -52,6 +53,14 @@ Route::group(['middleware' => 'admin'], function(){
     Route::get('admin/subject/edit/{id}', [SubjectController::class, 'edit']);
     Route::post('admin/subject/update/{subject}', [SubjectController::class, 'update']);
     Route::get('admin/subject/delete/{subject}', [SubjectController::class, 'destroy']);
+
+    // assign-subject route
+    Route::get('admin/assign-subject/list', [Class_subjectController::class, 'list'])->name('admin.assign-subject.list');
+    Route::get('admin/assign-subject/add', [Class_subjectController::class, 'add'])->name('admin.assign-subject.add.show');
+    Route::post('admin/assign-subject/add', [Class_subjectController::class, 'insert'])->name('admin.assign-subject.add.perform');
+    Route::get('admin/assign-subject/edit/{id}', [Class_subjectController::class, 'edit']);
+    Route::post('admin/assign-subject/update/{class_subject}', [Class_subjectController::class, 'update']);
+    Route::get('admin/assign-subject/delete/{class_subject}', [Class_subjectController::class, 'destroy']);
 
 }); 
 Route::group(['middleware' => 'teacher'], function(){
