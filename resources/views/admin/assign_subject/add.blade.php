@@ -18,14 +18,14 @@
                             <label for="name">Class Name</label>
                             <select class="form-control" name="class_id" required>
                                 <option value="">Choose One</option>
-                                @foreach ($getClass as $class)
+                                @foreach ($getClassAssign as $class)
                                     <option value="{{ $class->id }}">{{ $class->name }}</option>
                                 @endforeach
                             </select>                    
                             </div>
                         <div class="form-group">
                             <label for="name">Subject Name</label>
-                            @foreach ($getSubject as $subject)
+                            @foreach ($getSubjectAssign as $subject)
                                 <div>
                                     <input type="checkbox" value="{{ $subject->id }}" name="subject_id[]"> {{ $subject->name }}
                                 </div>

@@ -31,13 +31,29 @@ class Class_subject extends Model
                     }
         $return = $return->orderBy('class_subjects.id', 'desc')
                          ->where('class_subjects.is_delete', 0)
-                          ->paginate(2);
+                         ->where('subjects.status', 0)
+                          ->paginate(20);
 
         return $return;
+    }
+    static public function getSpecificClassSubject($class_subject)
+    {
+        $subject = self::where('classe_id', $class_subject->classe_id)->get();
+        return $subject;
     }
 
     static public function getAlreadyFirst($class_id, $subject_id)
     {
         return self::where('classe_id', $class_id)->where('subject_id', $subject_id)->first();
+    }
+
+    static public function getAssignSubjectID($class_id)
+    {
+        return self::where('classe_id', $class_id)->where('is_delete', 0)->first();
+    }
+
+    static public function deleteSubject($class_id)
+    {
+        return self::where('classe_id', $class_id)->delete();
     }
 }

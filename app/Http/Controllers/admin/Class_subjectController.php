@@ -21,8 +21,8 @@ class Class_subjectController extends Controller
     
     public function add()
     {
-        $data['getClass'] = Classe::getClassAssign();
-        $data['getSubject'] = Subject::getSubjectAssign();
+        $data['getClassAssign'] = Classe::getClassAssign();
+        $data['getSubjectAssign'] = Subject::getSubjectAssign();
         $data['header_title'] = 'Add new Assign Subject';
         return view('admin.assign_subject.add', $data);
     }
@@ -60,12 +60,55 @@ class Class_subjectController extends Controller
         }
     }
 
-    public function edit()
+    public function edit(Class_subject $class_subject)
+    { 
+        //  dd($class_subject);
+        if(!empty($class_subject))
+        {
+            $data['class_subjects'] = Class_subject::getSpecificClassSubject($class_subject);
+            // dd($data['class_subjects']);
+            $data['getAssignClassID'] = Class_subject::getAssignSubjectID($class_subject->classe_id);
+            $data['getClassAssigns'] = Classe::getClassAssign();
+            $data['getSubjectAssigns'] = Subject::getSubjectAssign();
+            // dd($data['getSubjectAssigns']);
+
+            $data['header_title'] = 'Edit Assign Subject';
+            return view('admin.assign_subject.edit', $data);
+        }
+        else
+        {
+            abort(404);
+        }
+    }
+
+    public function update(Request $request)
     {
-        $data['getClass'] = Classe::getClassAssign();
-        $data['getSubject'] = Subject::getSubjectAssign();
-        $data['header_title'] = 'Edit Assign Subject';
-        return view('admin.assign_subject.edit', $data);
+        Class_subject::deleteSubject($request->class_id);
+
+        if(!empty($request->subject_id))
+        {
+            foreach($request->subject_id as $subject_id)
+            {
+                $getAlreadyFirst = Class_subject::getAlreadyFirst($request->class_id, $subject_id);
+                if(!empty($getAlreadyFirst))
+                {
+                    $getAlreadyFirst->status = $request->status;
+                    $getAlreadyFirst->save();
+                }
+                else
+                {
+                    $class_subject = new Class_subject;
+                    $class_subject->classe_id = $request->class_id;
+                    $class_subject->subject_id = $subject_id;
+                    $class_subject->status = $request->status;
+                    $class_subject->created_by = Auth::user()->id;
+                    $class_subject->save();
+                }
+
+            } 
+        }
+        toastr()->addsuccess('Subject Successfully Assign to  Class');
+        return redirect()->route('admin.assign-subject.list');
     }
 
     
