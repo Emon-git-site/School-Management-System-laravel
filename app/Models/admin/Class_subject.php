@@ -31,7 +31,10 @@ class Class_subject extends Model
                     }
         $return = $return->orderBy('class_subjects.id', 'desc')
                          ->where('class_subjects.is_delete', 0)
+                         ->where('subjects.is_delete', 0)
+                         ->where('classes.is_delete', 0)
                          ->where('subjects.status', 0)
+                         ->where('classes.status', 0)
                           ->paginate(20);
 
         return $return;
@@ -47,9 +50,10 @@ class Class_subject extends Model
         return self::where('classe_id', $class_id)->where('subject_id', $subject_id)->first();
     }
 
-    static public function getAssignSubjectID($class_id)
+    static public function getAssignClassID($class_id)
     {
-        return self::where('classe_id', $class_id)->where('is_delete', 0)->first();
+        return self::where('classe_id', $class_id)
+                     ->where('is_delete', 0)->first();
     }
 
     static public function deleteSubject($class_id)

@@ -90,6 +90,8 @@
                                                 <td>
                                                     <a href="{{ url('admin/assign-subject/edit/' . $class_subject->id) }}"
                                                         class="btn btn-primary">Edit</a>
+                                                    <a href="{{ url('admin/assign-subject/edit-single/' . $class_subject->id) }}"
+                                                        class="btn btn-primary">Edit Single</a>
                                                     <a href="{{ url('admin/assign-subject/delete/' . $class_subject->id) }}"
                                                         class="btn btn-danger">Delete</a>
                                                 </td>
