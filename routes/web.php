@@ -2,12 +2,13 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\admin\AdminController;
-use App\Http\Controllers\admin\Class_subjectController;
 use App\Http\Controllers\admin\ClassController;
 use App\Http\Controllers\admin\SubjectController;
-use App\Http\Controllers\UserController;
+use App\Http\Controllers\admin\Class_subjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,11 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/admin/edit/{id}', [AdminController::class, 'edit']);
     Route::post('admin/admin/update/{admin}', [AdminController::class, 'update']);
     Route::get('admin/admin/delete/{admin}', [AdminController::class, 'destroy']);
+
+    // student
+    Route::get('admin/student/list', [StudentController::class, 'list'])->name('admin.student.list');
+    Route::get('admin/student/add', [StudentController::class, 'add'])->name('admin.student.add.show');
+    Route::post('admin/student/add', [StudentController::class, 'insert'])->name('admin.student.add.perform');
 
     // class route
     Route::get('admin/class/list', [ClassController::class, 'list'])->name('admin.class.list');

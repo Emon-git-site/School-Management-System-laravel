@@ -21,6 +21,20 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
+        'last_name',
+        'admission_number',
+        'roll_number',
+        'classe_id',
+        'gender',
+        'date_of_birth',
+        'caste',
+        'religion',
+        'mobile_number',
+        'admission_date',
+        'blood_group',
+        'height',
+        'weight',
+        'status',
         'email',
         'password',
     ];
@@ -48,22 +62,32 @@ class User extends Authenticatable
     static public function getAdmin()
     {
         $return = self::select('users.*')
-                        ->where('user_type', 1)
-                        ->where('is_delete', 0);
-                        if (!empty(request('email'))) {
-                            $email = request('email');
-                            $return = $return ->where('email', 'like', '%'.$email.'%');
-                        }
-                        if (!empty(request('name'))) {
-                            $name = request('name');
-                            $return = $return ->where('name', 'like', '%'.$name.'%');
-                        }
-                        if (!empty(request('date'))) {
-                            $date = request('date');
-                            $return = $return ->whereDate('created_at', $date);
-                        }
+            ->where('user_type', 1)
+            ->where('is_delete', 0);
+        if (!empty(request('email'))) {
+            $email = request('email');
+            $return = $return->where('email', 'like', '%' . $email . '%');
+        }
+        if (!empty(request('name'))) {
+            $name = request('name');
+            $return = $return->where('name', 'like', '%' . $name . '%');
+        }
+        if (!empty(request('date'))) {
+            $date = request('date');
+            $return = $return->whereDate('created_at', $date);
+        }
         $return  = $return->orderBy('id', 'desc')
-                          ->paginate(20);
+            ->paginate(20);
+        return $return;
+    }
+
+    static public function getStudent()
+    {
+        $return = self::select('users.*')
+            ->where('users.user_type', 3)
+            ->where('users.is_delete', 0)
+            ->orderBy('id', 'desc')
+            ->paginate(20);
         return $return;
     }
 
