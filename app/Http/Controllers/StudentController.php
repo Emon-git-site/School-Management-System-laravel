@@ -26,6 +26,12 @@ class StudentController extends Controller
 
     public function insert(Request $request)
     {
+        request()->validate([
+            'email' => 'required|email|unique:users',
+            'weight' => 'max:10',
+            'blood_group' => 'max:10',
+            // do more validation later
+        ]);
         $user = User::make($request->except('password', 'profie_pic'));
         $user->password = Hash::make($request->password);
         if(!empty($request->file('profile_pic')))
