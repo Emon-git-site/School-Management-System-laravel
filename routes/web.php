@@ -44,6 +44,8 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/student/list', [StudentController::class, 'list'])->name('admin.student.list');
     Route::get('admin/student/add', [StudentController::class, 'add'])->name('admin.student.add.show');
     Route::post('admin/student/add', [StudentController::class, 'insert'])->name('admin.student.add.perform');
+    Route::get('admin/student/edit/{student}', [StudentController::class, 'edit'])->name('admin.student.edit');
+    Route::post('admin/student/update/{student}', [StudentController::class, 'update'])->name('admin.student.update');
 
     // class route
     Route::get('admin/class/list', [ClassController::class, 'list'])->name('admin.class.list');

@@ -48,10 +48,10 @@
                                                 <td>{{ $student->email }}</td>
                                                 <td>{{ date('d-m-Y h:i A', strtotime($student->created_at)) }}</td>
                                                 <td>
-                                                    <a href="{{ url('admin/student/edit/' . $student->id) }}"
+                                                    <a href="{{ route('admin.student.edit', $student->id) }}"
                                                         class="btn btn-primary">Edit</a>
-                                                    <a href="{{ url('admin/student/delete/' . $student->id) }}"
-                                                        class="btn btn-danger">Delete</a>
+                                                    {{-- <a href="{{ route('admin.student.delete', $student->id) }}"
+                                                        class="btn btn-danger">Delete</a> --}}
                                                 </td>
                                             </tr>
                                         @endforeach

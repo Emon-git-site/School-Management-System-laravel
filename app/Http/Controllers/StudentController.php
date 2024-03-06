@@ -32,8 +32,8 @@ class StudentController extends Controller
             'blood_group' => 'max:10',
             // do more validation later
         ]);
-        $user = User::make($request->except('password', 'profie_pic'));
-        $user->password = Hash::make($request->password);
+        $student = User::make($request->except('password', 'profie_pic'));
+        $student->password = Hash::make($request->password);
         if(!empty($request->file('profile_pic')))
         {
             $ext = $request->file('profile_pic')->getClientOriginalExtension();
@@ -42,10 +42,54 @@ class StudentController extends Controller
             $filename = strtolower($randomStr).'.'.$ext;
             $destinationPath = public_path('upload/profile');
             $file->move($destinationPath, $filename);
-            $user->profile_pic = $filename;
+            $student->profile_pic = $filename;
         }
-        $user->save();
+        $student->save();
         toastr()->addsuccess('Student Successfully Created');
+        return redirect()->route('admin.student.list');
+    }
+
+    public function edit(User $student)
+    {
+        $data['student'] = $student;
+        if(!empty($data['student']))
+        {
+            $data['classes'] = Classe::getClassAssign();
+            $data['header_title'] = 'Edit Student';
+            return view('admin.student.edit', $data);
+        }
+        else
+        {
+            abort(404);
+        }
+    }
+
+    public function update(Request $request, User $student)
+    {
+        // dd($student->id);
+        request()->validate([
+            'email' => 'required|email|unique:users,email,' . $student->id,
+            'weight' => 'max:10',
+            'blood_group' => 'max:10',
+            // do more validation later
+        ]);
+        $student->fill($request->except('password', 'profie_pic'));
+        if(!empty($student->password))
+        {
+            $student->password = Hash::make($request->password);
+        }
+        if(!empty($request->file('profile_pic')))
+        {
+            $ext = $request->file('profile_pic')->getClientOriginalExtension();
+            $file = $request->file('profile_pic');
+            $randomStr = Str::random(20);
+            $filename = strtolower($randomStr).'.'.$ext;
+            $destinationPath = public_path('upload/profile');
+            $file->move($destinationPath, $filename);
+            $student->profile_pic = $filename;
+        }
+        $student->save();
+        toastr()->addsuccess('Student Successfully Updated');
         return redirect()->route('admin.student.list');
     }
 }
