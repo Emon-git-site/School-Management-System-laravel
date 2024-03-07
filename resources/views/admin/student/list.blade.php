@@ -34,8 +34,22 @@
                                     <thead>
                                         <tr>
                                             <th>#</th>
+                                            <th>Profile Pic</th>
                                             <th>Name</th>
                                             <th>Email</th>
+                                            <th>Admission Number</th>
+                                            <th>Roll Number</th>
+                                            <th>Class</th>
+                                            <th>Gender</th>
+                                            <th>Date of Birth</th>
+                                            <th>Caste</th>
+                                            <th>Religion</th>
+                                            <th>Mobile Number</th>
+                                            <th>Admission Date</th>
+                                            <th>Blood Group</th>
+                                            <th>Height</th>
+                                            <th>Weigth</th>
+                                            <th>Status</th>
                                             <th>Created Date</th>
                                             <th>Action</th>
                                         </tr>
@@ -44,14 +58,41 @@
                                         @foreach ($students as $student)
                                             <tr>
                                                 <td>{{ $loop->iteration }}</td>
-                                                <td>{{ $student->name }}</td>
+                                                <td>
+                                                    @if ($student->getProfile())
+                                                        <img src="{{ $student->getProfile() }}"
+                                                            style="height: 50px; width:50px; border-radius:50px;">
+                                                    @endif
+                                                </td>
+                                                <td>{{ $student->name }} {{ $student->last_name }}</td>
                                                 <td>{{ $student->email }}</td>
+                                                <td>{{ $student->admission_number }}</td>
+                                                <td>{{ $student->roll_number }}</td>
+                                                <td>{{ $student->class_name }}</td>
+                                                <td>{{ $student->gender }}</td>
+                                                <td>
+                                                    @if (!@empty($student->date_of_birth))
+                                                        {{ date('d-m-Y', strtotime($student->date_of_birth)) }}
+                                                    @endif
+                                                </td>
+                                                <td>{{ $student->caste }}</td>
+                                                <td>{{ $student->religion }}</td>
+                                                <td>{{ $student->mobile_number }}</td>
+                                                <td>
+                                                    @if (!@empty($student->admission_date))
+                                                        {{ date('d-m-Y', strtotime($student->admission_date)) }}
+                                                    @endif
+                                                </td>
+                                                <td>{{ $student->blood_group }}</td>
+                                                <td>{{ $student->height }}</td>
+                                                <td>{{ $student->weight }}</td>
+                                                <td>{{ $student->status == 0 ? 'Active' : 'Inactive' }}</td>
                                                 <td>{{ date('d-m-Y h:i A', strtotime($student->created_at)) }}</td>
                                                 <td>
                                                     <a href="{{ route('admin.student.edit', $student->id) }}"
-                                                        class="btn btn-primary">Edit</a>
-                                                    {{-- <a href="{{ route('admin.student.delete', $student->id) }}"
-                                                        class="btn btn-danger">Delete</a> --}}
+                                                        class="btn btn-sm btn-primary">Edit</a>
+                                                    <a href="{{ route('admin.student.delete', $student->id) }}"
+                                                        class="btn btn-sm btn-danger">Delete</a>
                                                 </td>
                                             </tr>
                                         @endforeach

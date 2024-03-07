@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 class StudentController extends Controller
 {
     public function list()
-    {
+    { 
         $data['header_title'] = 'Student List';
         $data['students'] = User::getStudent();
         return view('admin.student.list', $data);
@@ -93,6 +93,15 @@ class StudentController extends Controller
         }
         $student->save();
         toastr()->addsuccess('Student Successfully Updated');
+        return redirect()->route('admin.student.list');
+    }
+
+    
+    public function destroy(User $student)
+    {
+        $student->is_delete = 1;
+        $student->save();
+        toastr()->addsuccess('Student Successfully Deleted');
         return redirect()->route('admin.student.list');
     }
 }

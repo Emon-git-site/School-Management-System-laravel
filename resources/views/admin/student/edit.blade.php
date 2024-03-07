@@ -96,7 +96,7 @@
                                 <div style="color: red">{{ $errors->first('profile_pic') }}</div>
                                 @if (!empty($student->getProfile()))
                                 <img src="{{ $student->getProfile() }}" style="width:100px">
-                            @endif
+                                @endif
                             </div>
                         </div>
                         <div class="row">
