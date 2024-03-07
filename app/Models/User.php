@@ -86,8 +86,67 @@ class User extends Authenticatable
         $return = self::select('users.*', 'classes.name as class_name')
             ->join('classes', 'classes.id', 'users.classe_id')
             ->where('users.user_type', 3)
-            ->where('users.is_delete', 0)
-            ->orderBy('users.id', 'desc')
+            ->where('users.is_delete', 0);
+            if (!empty(request('name'))) {
+                $name = request('name');
+                $return = $return->where('users.name', 'like', '%' . $name . '%');
+            }
+            if (!empty(request('last_name'))) {
+                $last_name = request('last_name');
+                $return = $return->where('users.last_name', 'like', '%' . $last_name . '%');
+            }
+            if (!empty(request('email'))) {
+                $email = request('email');
+                $return = $return->where('users.email', 'like', '%' . $email . '%');
+            }
+            if (!empty(request('admission_number'))) {
+                $admission_number = request('admission_number');
+                $return = $return->where('users.admission_number', 'like', '%' . $admission_number . '%');
+            }
+            if (!empty(request('roll_nubmer'))) {
+                $roll_nubmer = request('roll_nubmer');
+                $return = $return->where('users.roll_nubmer', 'like', '%' . $roll_nubmer . '%');
+            }
+            if (!empty(request('classe'))) {
+                $classe = request('classe');
+                $return = $return->where('classes.name', 'like', '%' . $classe . '%');
+            }
+            if (!empty(request('gender'))) {
+                $gender = request('gender');
+                $return = $return->where('users.gender', 'like', '%' . $gender . '%');
+            }
+            if (!empty(request('caste'))) {
+                $caste = request('caste');
+                $return = $return->where('users.caste', 'like', '%' . $caste . '%');
+            }
+            if (!empty(request('religion'))) {
+                $religion = request('religion');
+                $return = $return->where('users.religion', 'like', '%' . $religion . '%');
+            }
+            if (!empty(request('mobile_nubmer'))) {
+                $mobile_nubmer = request('mobile_nubmer');
+                $return = $return->where('users.mobile_nubmer', 'like', '%' . $mobile_nubmer . '%');
+            }
+            if (!empty(request('blood_group'))) {
+                $blood_group = request('blood_group');
+                $return = $return->where('users.blood_group', 'like', '%' . $blood_group . '%');
+            }
+    
+            if (!empty(request('admission_date'))) {
+                $admission_date = request('admission_date');
+                $return = $return->whereDate('users.admission_date', $admission_date);
+            }
+    
+            if (!empty(request('date'))) {
+                $date = request('date');
+                $return = $return->whereDate('users.created_at', $date);
+            }
+            if (!empty(request('status'))) {
+                $status = request('status');
+                $status = ($status == 0)? 0:1;
+                $return = $return->where('users.status', $status);
+            }
+           $return = $return->orderBy('users.id', 'desc')
             ->paginate(20);
         return $return;
     }

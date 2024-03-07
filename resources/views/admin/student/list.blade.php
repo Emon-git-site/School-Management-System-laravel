@@ -19,6 +19,95 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Search Assign Subject</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                        <form action="" method="get">
+                            <div class="row p-1">
+                                <div class="form-group  col-md-2">
+                                    <input type="text" class="form-control" name="name"
+                                        value="{{ Request::get('name') }}" placeholder="First Name">
+                                </div>
+                                <div class="form-group  col-md-2">
+                                    <input type="text" class="form-control" name="last_name"
+                                        value="{{ Request::get('last_name') }}" placeholder="Last Name">
+                                </div>
+                                <div class="form-group  col-md-3">
+                                    <input type="text" class="form-control" name="email"
+                                        value="{{ Request::get('email') }}" placeholder="Email Address">
+                                </div>
+                                <div class="form-group  col-md-3">
+                                    <input type="text" class="form-control" name="admission_number"
+                                        value="{{ Request::get('admission_number') }}" placeholder="Admission Number">
+                                </div>
+                                <div class="form-group  col-md-2">
+                                    <input type="text" class="form-control" name="roll_number"
+                                        value="{{ Request::get('roll_number') }}" placeholder="Roll Number">
+                                </div>
+                                <div class="form-group  col-md-2">
+                                    <input type="text" class="form-control" name="classe"
+                                        value="{{ Request::get('classe') }}" placeholder="Class">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <select name="gender" class="form-control">
+                                        <option value="">Select Gender</option>
+                                        <option {{ Request::get('gender') == 'Male' ? 'selected' : '' }} value="Male">Male
+                                        </option>
+                                        <option {{ Request::get('gender') == 'Female' ? 'selected' : '' }} value="Female">
+                                            Female</option>
+                                        <option {{ Request::get('gender') == 'Other' ? 'selected' : '' }} value="Other">
+                                            Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group  col-md-2">
+                                    <input type="text" class="form-control" name="caste"
+                                        value="{{ Request::get('caste') }}" placeholder="Caste">
+                                </div>
+                                <div class="form-group  col-md-2">
+                                    <input type="text" class="form-control" name="religion"
+                                        value="{{ Request::get('religion') }}" placeholder="Religiion">
+                                </div>
+                                <div class="form-group  col-md-2">
+                                    <input type="text" class="form-control" name="mobile_number"
+                                        value="{{ Request::get('mobile_number') }}" placeholder="Mobile Number">
+                                </div>
+                                <div class="form-group  col-md-2">
+                                    <input type="text" class="form-control" name="blood_group"
+                                        value="{{ Request::get('blood_group') }}" placeholder="Blood Group">
+                                </div>
+                                <div class="form-group col-md-2">
+                                    <select name="status" class="form-control">
+                                        <option value="">Select Status</option>
+                                        <option {{ Request::get('status') == '0' ? 'selected' : '' }} value="0">Active
+                                        </option>
+                                        <option {{ Request::get('status') == '1' ? 'selected' : '' }} value="1">
+                                            Inactive</option>
+
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-4" style="display: flex; align-items: center;">
+                                    <label for="date" style="margin-right: 10px; font-weight: normal;"> Amission Date:</label>
+                                    <input type="date" class="form-control" name="admission_date" value="{{ Request::get('admission_date') }}">
+                                </div>  
+                                <div class="form-group col-md-4" style="display: flex; align-items: center;">
+                                    <label for="date" style="margin-right: 10px; font-weight: normal;"> Created Date:</label>
+                                    <input type="date" class="form-control" name="date" value="{{ Request::get('date') }}">
+                                </div>
+                                
+
+                                <div class="form-group col-md-2 d-flex align-items-center">
+                                    <button class="btn btn-primary btn-outlook mr-2" type="submit">Search</button>
+                                    <a href="{{ route('admin.student.list') }}"
+                                        class="btn btn-success btn-outlook" role="button">Reset</a>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
                 <!-- Small boxes (Stat box) -->
                 <div class="row">
                     <div class="col-12">
