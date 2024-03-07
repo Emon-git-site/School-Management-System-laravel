@@ -66,7 +66,6 @@ class StudentController extends Controller
 
     public function update(Request $request, User $student)
     {
-        // dd($student->id);
         request()->validate([
             'email' => 'required|email|unique:users,email,' . $student->id,
             'weight' => 'max:10',
@@ -80,6 +79,10 @@ class StudentController extends Controller
         }
         if(!empty($request->file('profile_pic')))
         {
+            if(!empty($student->getProfile()))
+            {
+                unlink('upload/profile/'.$student->profile_pic);
+            }
             $ext = $request->file('profile_pic')->getClientOriginalExtension();
             $file = $request->file('profile_pic');
             $randomStr = Str::random(20);

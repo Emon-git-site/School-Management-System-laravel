@@ -89,14 +89,14 @@
                                 <label for="admission_date">Admission Date</label><span style="color:red;">*</span>
                                 <input type="date" id="admission_date" class="form-control" name="admission_date" value="{{ old('admission_date', $student->admission_date) }}" placeholder="Enter Admission Date" required>
                                 <div style="color: red">{{ $errors->first('admission_date') }}</div>
-                                @if (!empty($student->getProfile()))
-                                    <img src="{{ $student->getProfile() }}" style="width:100px">
-                                @endif
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="profile_pic">Profile Pic</label><span style="color:red;">*</span>
                                 <input type="file" id="profile_pic" class="form-control" name="profile_pic" >
                                 <div style="color: red">{{ $errors->first('profile_pic') }}</div>
+                                @if (!empty($student->getProfile()))
+                                <img src="{{ $student->getProfile() }}" style="width:100px">
+                            @endif
                             </div>
                         </div>
                         <div class="row">
