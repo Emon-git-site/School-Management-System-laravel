@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ParentController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\admin\AdminController;
@@ -47,6 +48,14 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/student/edit/{student}', [StudentController::class, 'edit'])->name('admin.student.edit');
     Route::post('admin/student/update/{student}', [StudentController::class, 'update'])->name('admin.student.update');
     Route::get('admin/student/delete/{student}', [StudentController::class, 'destroy'])->name('admin.student.delete');
+   
+    // parent
+    Route::get('admin/parent/list', [ParentController::class, 'list'])->name('admin.parent.list');
+    Route::get('admin/parent/add', [ParentController::class, 'add'])->name('admin.parent.add.show');
+    Route::post('admin/parent/add', [ParentController::class, 'insert'])->name('admin.parent.add.perform');
+    Route::get('admin/parent/edit/{parent}', [ParentController::class, 'edit'])->name('admin.parent.edit');
+    Route::post('admin/parent/update/{parent}', [ParentController::class, 'update'])->name('admin.parent.update');
+    Route::get('admin/parent/delete/{parent}', [ParentController::class, 'destroy'])->name('admin.parent.delete');
 
     // class route
     Route::get('admin/class/list', [ClassController::class, 'list'])->name('admin.class.list');

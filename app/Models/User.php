@@ -35,6 +35,8 @@ class User extends Authenticatable
         'height',
         'weight',
         'status',
+        'occupation',
+        'address',
         'email',
         'password',
     ];
@@ -76,6 +78,28 @@ class User extends Authenticatable
             $date = request('date');
             $return = $return->whereDate('created_at', $date);
         }
+        $return  = $return->orderBy('id', 'desc')
+            ->paginate(20);
+        return $return;
+    }
+
+    static public function getParent()
+    {
+        $return = self::select('users.*')
+            ->where('user_type', 4)
+            ->where('is_delete', 0);
+        // if (!empty(request('email'))) {
+        //     $email = request('email');
+        //     $return = $return->where('email', 'like', '%' . $email . '%');
+        // }
+        // if (!empty(request('name'))) {
+        //     $name = request('name');
+        //     $return = $return->where('name', 'like', '%' . $name . '%');
+        // }
+        // if (!empty(request('date'))) {
+        //     $date = request('date');
+        //     $return = $return->whereDate('created_at', $date);
+        // }
         $return  = $return->orderBy('id', 'desc')
             ->paginate(20);
         return $return;

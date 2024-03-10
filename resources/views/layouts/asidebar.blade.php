@@ -47,6 +47,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('admin.parent.list') }}" class="nav-link @if(Request::segment(2) == 'parent') active @endif">
+                        <i class="nav-icon far fa-user"></i>
+                        <p>
+                            Parent
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('admin.class.list') }}" class="nav-link @if(Request::segment(2) == 'class') active @endif">
                         <i class="nav-icon far fa-user"></i>
                         <p>

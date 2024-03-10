@@ -14,7 +14,6 @@ class StudentController extends Controller
     { 
         $data['header_title'] = 'Student List';
         $data['students'] = User::getStudent();
-        // dd($data['students']);
         return view('admin.student.list', $data);
     }
 
