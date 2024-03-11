@@ -21,7 +21,7 @@
             <div class="container-fluid">
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">Search Assign Subject</h3>
+                        <h3 class="card-title">Search Student</h3>
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
@@ -124,7 +124,8 @@
                                         <tr>
                                             <th>#</th>
                                             <th>Profile Pic</th>
-                                            <th>Name</th>
+                                            <th>Student Name</th>
+                                            <th>Parent Name</th>
                                             <th>Email</th>
                                             <th>Admission Number</th>
                                             <th>Roll Number</th>
@@ -154,6 +155,7 @@
                                                     @endif
                                                 </td>
                                                 <td>{{ $student->name }} {{ $student->last_name }}</td>
+                                                <td>{{ $student->parent_name }} {{ $student->parent_last_name }}</td>
                                                 <td>{{ $student->email }}</td>
                                                 <td>{{ $student->admission_number }}</td>
                                                 <td>{{ $student->roll_number }}</td>
