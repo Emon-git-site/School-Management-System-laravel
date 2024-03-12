@@ -39,6 +39,11 @@ class User extends Authenticatable
         'address',
         'email',
         'password',
+        'marital_status',
+        'permanent_address',
+        'qualification',
+        'work_exprience',
+        'note',
     ];
 
     /**
@@ -186,6 +191,58 @@ class User extends Authenticatable
                 $return = $return->whereDate('users.admission_date', $admission_date);
             }
     
+            if (!empty(request('date'))) {
+                $date = request('date');
+                $return = $return->whereDate('users.created_at', $date);
+            }
+            if (!empty(request('status'))) {
+                $status = request('status');
+                $status = ($status == 0)? 0:1;
+                $return = $return->where('users.status', $status);
+            }
+           $return = $return->orderBy('users.id', 'desc')
+            ->paginate(20);
+        return $return;
+    }
+
+    static public function getTeacher()
+    {
+        $return = self::select('users.*', 'classes.name as class_name')
+            ->leftjoin('classes', 'classes.id', 'users.classe_id')
+            ->where('users.user_type', 2)
+            ->where('users.is_delete', 0);
+            if (!empty(request('name'))) {
+                $name = request('name');
+                $return = $return->where('users.name', 'like', '%' . $name . '%');
+            }
+            if (!empty(request('last_name'))) {
+                $last_name = request('last_name');
+                $return = $return->where('users.last_name', 'like', '%' . $last_name . '%');
+            }
+            if (!empty(request('email'))) {
+                $email = request('email');
+                $return = $return->where('users.email', 'like', '%' . $email . '%');
+            }
+            if (!empty(request('address'))) {
+                $address = request('address');
+                $return = $return->where('users.address', 'like', '%' . $address . '%');
+            }
+            if (!empty(request('marital_status'))) {
+                $marital_status = request('marital_status');
+                $return = $return->where('users.marital_status', 'like', '%' . $marital_status . '%');
+            }
+            if (!empty(request('mobile_nubmer'))) {
+                $mobile_nubmer = request('mobile_nubmer');
+                $return = $return->where('users.mobile_nubmer', 'like', '%' . $mobile_nubmer . '%');
+            }
+            if (!empty(request('gender'))) {
+                $gender = request('gender');
+                $return = $return->where('users.gender', 'like', '%' . $gender . '%');
+            }
+            if (!empty(request('admission_date'))) {
+                $admission_date = request('admission_date');
+                $return = $return->whereDate('users.admission_date', $admission_date);
+            } 
             if (!empty(request('date'))) {
                 $date = request('date');
                 $return = $return->whereDate('users.created_at', $date);

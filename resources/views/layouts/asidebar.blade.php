@@ -39,6 +39,14 @@
                     </a>
                 </li>
                 <li class="nav-item">
+                    <a href="{{ route('admin.teacher.list') }}" class="nav-link @if(Request::segment(2) == 'teacher') active @endif">
+                        <i class="nav-icon far fa-user"></i>
+                        <p>
+                            Teacher
+                        </p>
+                    </a>
+                </li>
+                <li class="nav-item">
                     <a href="{{ route('admin.student.list') }}" class="nav-link @if(Request::segment(2) == 'student') active @endif">
                         <i class="nav-icon far fa-user"></i>
                         <p>

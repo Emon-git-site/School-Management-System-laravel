@@ -30,7 +30,6 @@ class StudentController extends Controller
             'email' => 'required|email|unique:users',
             'weight' => 'max:10',
             'blood_group' => 'max:10',
-            // do more validation later
         ]);
         $student = User::make($request->except('password', 'profie_pic'));
         $student->password = Hash::make($request->password);
@@ -70,7 +69,6 @@ class StudentController extends Controller
             'email' => 'required|email|unique:users,email,' . $student->id,
             'weight' => 'max:10',
             'blood_group' => 'max:10',
-            // do more validation later
         ]);
         $student->fill($request->except('password', 'profie_pic'));
         if(!empty($student->password))

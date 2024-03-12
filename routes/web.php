@@ -5,6 +5,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ParentController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\admin\AdminController;
 use App\Http\Controllers\admin\ClassController;
@@ -33,6 +34,7 @@ Route::post('/reset/{token}', [AuthController::class, 'PostReset'])->name('reset
 
 
 Route::group(['middleware' => 'admin'], function () {
+    // admin
     Route::get('admin/dashboard', [DashboardController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('admin/admin/list', [AdminController::class, 'list'])->name('admin.admin.list');
     Route::get('admin/admin/add', [AdminController::class, 'add'])->name('admin.admin.add.show');
@@ -40,6 +42,14 @@ Route::group(['middleware' => 'admin'], function () {
     Route::get('admin/admin/edit/{id}', [AdminController::class, 'edit']);
     Route::post('admin/admin/update/{admin}', [AdminController::class, 'update']);
     Route::get('admin/admin/delete/{admin}', [AdminController::class, 'destroy']);
+
+    // teacher
+    Route::get('admin/teacher/list', [TeacherController::class, 'list'])->name('admin.teacher.list');
+    Route::get('admin/teacher/add', [TeacherController::class, 'add'])->name('admin.teacher.add.show');
+    Route::post('admin/teacher/add', [TeacherController::class, 'insert'])->name('admin.teacher.add.perform');
+    Route::get('admin/teacher/edit/{teacher}', [TeacherController::class, 'edit'])->name('admin.teacher.edit');
+    Route::post('admin/teacher/update/{teacher}', [TeacherController::class, 'update'])->name('admin.teacher.update');
+    Route::get('admin/teacher/delete/{teacher}', [TeacherController::class, 'destroy'])->name('admin.teacher.delete');
 
     // student
     Route::get('admin/student/list', [StudentController::class, 'list'])->name('admin.student.list');
