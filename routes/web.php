@@ -101,7 +101,12 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/change_password', [UserController::class, 'change_passwordUpdate']);
 });
 Route::group(['middleware' => 'teacher'], function () {
+    // dashboard
     Route::get('teacher/dashboard', [DashboardController::class, 'dashboard'])->name('teacher.dashboard');
+
+    // account
+    Route::get('teacher/account/edit', [UserController::class, 'myAccount'])->name('teacher.account.edit');
+    Route::post('teacher/account/update', [UserController::class, 'updateAccount'])->name('teacher.account.update');
 
     // password_change
     Route::get('teacher/change_password', [UserController::class, 'change_passwordShow'])->name('teacher.change_password.show');
