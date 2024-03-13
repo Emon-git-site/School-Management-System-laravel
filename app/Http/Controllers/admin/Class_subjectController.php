@@ -56,7 +56,7 @@ class Class_subjectController extends Controller
     {
         if (!empty($class_subject)) {
             $data['class_subjects'] = Class_subject::getSpecificClassSubject($class_subject);
-            $data['getAssignClassID'] = Class_subject::getAssignSubjectID($class_subject->classe_id);
+            $data['getAssignClassID'] = Class_subject::getAssignClassID($class_subject->classe_id);
             $data['getClassAssigns'] = Classe::getClassAssign();
             $data['getSubjectAssigns'] = Subject::getSubjectAssign();
             $data['header_title'] = 'Edit Assign Subject';
@@ -132,4 +132,6 @@ class Class_subjectController extends Controller
 
         }
     }
+
+
 }
