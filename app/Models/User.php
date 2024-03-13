@@ -290,13 +290,13 @@ class User extends Authenticatable
         }
     }
 
-    static public function getParentStudent($id)
+    static public function getParentStudent($parent_id)
     {
         $return = self::select('users.*', 'classes.name as class_name', 'parent.name as parent_name')
         ->leftjoin('users as parent', 'parent.id', '=', 'users.parent_id')
         ->join('classes', 'classes.id', 'users.classe_id')
         ->where('users.user_type', 3)
-        ->where('users.parent_id', $id)
+        ->where('users.parent_id', $parent_id)
         ->where('users.is_delete', 0)
         ->orderBy('users.id', 'desc')
         ->limit(50)->get();

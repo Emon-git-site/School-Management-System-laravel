@@ -155,7 +155,7 @@
                             class="nav-link @if (Request::segment(2) == 'account') active @endif">
                             <i class="nav-icon far fa-user"></i>
                             <p>
-                                My account
+                                My Account
                             </p>
                         </a>
                     </li>
@@ -179,11 +179,20 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('parent.my_student') }}"
+                            class="nav-link @if (Request::segment(2) == 'my_student') active @endif">
+                            <i class="nav-icon far fa-user"></i>
+                            <p>
+                                My Student
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('parent.account.edit') }}"
                             class="nav-link @if (Request::segment(2) == 'account') active @endif">
                             <i class="nav-icon far fa-user"></i>
                             <p>
-                                My account
+                                My Account
                             </p>
                         </a>
                     </li>
