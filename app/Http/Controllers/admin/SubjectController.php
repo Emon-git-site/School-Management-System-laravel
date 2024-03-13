@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers\admin;
 
+use App\Models\User;
 use Illuminate\Http\Request;
 use App\Models\admin\Subject;
-use App\Http\Controllers\Controller;
+use PhpParser\Node\Expr\FuncCall;
 use App\Models\admin\Class_subject;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
 class SubjectController extends Controller
@@ -71,11 +73,23 @@ class SubjectController extends Controller
         return redirect()->route('admin.subject.list');
     }
 
-    // student part
+    // student side
     public function MySubject()
     {
         $data['mySubjects'] = Class_subject::mySubjectName(Auth::user()->classe_id);
         $data['header_title'] = 'My Subject';
         return view('student.my_subject', $data);
+    }
+
+    // parent side
+
+    public function parentstudentSubject($student_id)
+    {
+         $student = User::getSingle($student_id);
+         $data['student'] = $student;
+         $data['mySubjects'] = Class_subject::mySubjectName($student->classe_id);
+         $data['header_title'] = 'Student Subject';
+         return view('parent.my_student_subject', $data);
+
     }
 }
