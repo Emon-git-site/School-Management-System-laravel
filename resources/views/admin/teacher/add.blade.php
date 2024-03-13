@@ -29,12 +29,12 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="address">Current Address</label><span style="color:red;">*</span>
-                                <input type="text" id="address" class="form-control" name="address" value="{{ old('address') }}" placeholder="Enter Admission Number" required>
+                                <input type="text" id="address" class="form-control" name="address" value="{{ old('address') }}" placeholder="Enter Current Address" required>
                                 <div style="color: red">{{ $errors->first('address') }}</div>
                             </div>
                             <div class="form-group col-md-6">
                                 <label for="permanent_address">Permanent Address</label><span style="color:red;">*</span>
-                                <input type="text" id="permanent_address" class="form-control" name="permanent_address" value="{{ old('permanent_address') }}" placeholder="Enter Roll Number" required>
+                                <input type="text" id="permanent_address" class="form-control" name="permanent_address" value="{{ old('permanent_address') }}" placeholder="Enter Permanent Address" required>
                                 <div style="color: red">{{ $errors->first('permanent_address') }}</div>
                             </div>
                         </div>
@@ -70,7 +70,7 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="admission_date">Joining Date</label><span style="color:red;">*</span>
-                                <input type="date" id="admission_date" class="form-control" name="admission_date" value="{{ old('admission_date') }}" placeholder="Enter Admission Date" required>
+                                <input type="date" id="admission_date" class="form-control" name="admission_date" value="{{ old('admission_date') }}" placeholder="Enter Joining Date" required>
                                 <div style="color: red">{{ $errors->first('admission_date') }}</div>
                             </div>
                             <div class="form-group col-md-6">
@@ -82,7 +82,7 @@
                         <div class="row">
                             <div class="form-group col-md-6">
                                 <label for="work_experience">Work Exprience</label><span style="color:red;">*</span>
-                                <input type="text" id="work_experience" class="form-control" name="work_experience" value="{{ old('work_experience') }}" placeholder="Enter Blood Group" required>
+                                <input type="text" id="work_experience" class="form-control" name="work_experience" value="{{ old('work_experience') }}" placeholder="Enter Work Experience" required>
                                 <div style="color: red">{{ $errors->first('work_experience') }}</div>
                             </div>
                             <div class="form-group col-md-6">

@@ -115,6 +115,10 @@ Route::group(['middleware' => 'teacher'], function () {
 Route::group(['middleware' => 'student'], function () {
     Route::get('student/dashboard', [DashboardController::class, 'dashboard'])->name('student.dashboard');
 
+        // account
+        Route::get('student/account/edit', [UserController::class, 'myAccount'])->name('student.account.edit');
+        Route::post('student/account/update', [UserController::class, 'updateAccountStudent'])->name('student.account.update');
+
     // password_change
     Route::get('student/change_password', [UserController::class, 'change_passwordShow'])->name('student.change_password.show');
     Route::post('student/change_password', [UserController::class, 'change_passwordUpdate']);

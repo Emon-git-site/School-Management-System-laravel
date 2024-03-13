@@ -15,7 +15,21 @@ class UserController extends Controller
     {
         $data['teacher'] = User::getSingle(Auth::user()->id);
         $data['header_title'] = "My Account";
-        return view('teacher.my_account', $data);
+        if(Auth::user()->user_type == 2)
+        {
+            $data['teacher'] = User::getSingle(Auth::user()->id);
+            return view('teacher.my_account', $data);
+        }
+        elseif(Auth::user()->user_type == 3)
+        {
+            $data['student'] = User::getSingle(Auth::user()->id);
+            return view('student.my_account', $data);
+        }
+        elseif(Auth::user()->user_type == 4)
+        {
+            $data['parent'] = User::getSingle(Auth::user()->id);
+            return view('parent.my_account', $data);
+        }
     }
 
     public function updateAccount(Request $request)
@@ -53,6 +67,43 @@ class UserController extends Controller
         $teacher->save();
         toastr()->addsuccess('Account Successfully Updated');
         return redirect()->route('teacher.account.edit');
+    }
+
+    public function updateAccountStudent(Request $request)
+    {
+        $student = User::getSingle(Auth::user()->id);
+        request()->validate([
+            'name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'gender' => 'required|in:Male,Female,Other',
+            'profile_pic' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'date_of_birth' => 'required|date',
+            'caste' => 'required|string|max:255',
+            'religion' => 'required|string|max:255',
+            'mobile_number' => 'required|digits_between:10,15',
+            'blood_group' => 'required|string|max:255',
+            'height' => 'required|numeric|min:0',
+            'weight' => 'required|numeric|min:0',
+            'email' => 'required|email|unique:users,email,' . $student->id, 
+        ]);
+        $student->fill($request->except('profie_pic'));
+        if(!empty($request->file('profile_pic')))
+        {
+            if(!empty($student->getProfile()))
+            {
+                unlink('upload/profile/'.$student->profile_pic);
+            }
+            $ext = $request->file('profile_pic')->getClientOriginalExtension();
+            $file = $request->file('profile_pic');
+            $randomStr = Str::random(20);
+            $filename = strtolower($randomStr).'.'.$ext;
+            $destinationPath = public_path('upload/profile');
+            $file->move($destinationPath, $filename);
+            $student->profile_pic = $filename;
+        }
+        $student->save();
+        toastr()->addsuccess('Account Successfully Updated');
+        return redirect()->route('student.account.edit');
     }
 
     public function change_passwordShow()
