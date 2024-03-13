@@ -106,6 +106,39 @@ class UserController extends Controller
         return redirect()->route('student.account.edit');
     }
 
+    public function updateAccountParent(Request $request)
+    {
+        $parent = User::getSingle(Auth::user()->id);
+        request()->validate([
+            'name' => 'required|string|max:255',
+            'last_name' => 'required|string|max:255',
+            'gender' => 'required|in:Male,Female,Other',
+            'occupation' => 'required|string|max:255',
+            'mobile_number' => 'required|string|max:255',
+            'profile_pic' => 'nullable|file|image|max:5024', 
+            'address' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,'.$parent->id,
+        ]);
+        $parent->fill($request->except('profie_pic'));
+        if(!empty($request->file('profile_pic')))
+        {
+            if(!empty($parent->getProfile()))
+            {
+                unlink('upload/profile/'.$parent->profile_pic);
+            }
+            $ext = $request->file('profile_pic')->getClientOriginalExtension();
+            $file = $request->file('profile_pic');
+            $randomStr = Str::random(20);
+            $filename = strtolower($randomStr).'.'.$ext;
+            $destinationPath = public_path('upload/profile');
+            $file->move($destinationPath, $filename);
+            $parent->profile_pic = $filename;
+        }
+        $parent->save();
+        toastr()->addsuccess('Account Successfully Updated');
+        return redirect()->route('parent.account.edit');
+    }
+
     public function change_passwordShow()
     {
         $data['header_title'] = "Change Password";
