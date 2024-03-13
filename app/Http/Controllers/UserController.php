@@ -13,9 +13,13 @@ class UserController extends Controller
     
     public function myAccount()
     {
-        $data['teacher'] = User::getSingle(Auth::user()->id);
         $data['header_title'] = "My Account";
-        if(Auth::user()->user_type == 2)
+        if(Auth::user()->user_type == 1)
+        {
+            $data['admin'] = User::getSingle(Auth::user()->id);
+            return view('admin.my_account', $data);
+        }
+        elseif(Auth::user()->user_type == 2)
         {
             $data['teacher'] = User::getSingle(Auth::user()->id);
             return view('teacher.my_account', $data);
@@ -30,6 +34,18 @@ class UserController extends Controller
             $data['parent'] = User::getSingle(Auth::user()->id);
             return view('parent.my_account', $data);
         }
+    }
+
+    public function updateAccountAdmin(Request $request)
+    {
+        $admin = User::getSingle(Auth::user()->id);
+        request()->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255|unique:users,email,' . $admin->id,
+        ]);
+        $admin->update($request->all());
+        toastr()->addsuccess('Account Successfully Updated');
+        return redirect()->route('admin.account.edit');
     }
 
     public function updateAccount(Request $request)

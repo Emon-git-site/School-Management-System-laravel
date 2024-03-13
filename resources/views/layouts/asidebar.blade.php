@@ -95,6 +95,15 @@
                         </a>
                     </li>
                     <li class="nav-item">
+                        <a href="{{ route('admin.account.edit') }}"
+                            class="nav-link @if (Request::segment(2) == 'account') active @endif">
+                            <i class="nav-icon far fa-user"></i>
+                            <p>
+                                My Account
+                            </p>
+                        </a>
+                    </li>
+                    <li class="nav-item">
                         <a href="{{ route('admin.change_password.show') }}"
                             class="nav-link @if (Request::segment(2) == 'change_password') active @endif">
                             <i class="nav-icon far fa-user"></i>

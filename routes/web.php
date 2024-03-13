@@ -96,6 +96,9 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/assign-subject/update-single/{class_subject}', [Class_subjectController::class, 'updateSingle']);
     Route::get('admin/assign-subject/delete/{class_subject}', [Class_subjectController::class, 'destroy']);
 
+        // account
+        Route::get('admin/account/edit', [UserController::class, 'myAccount'])->name('admin.account.edit');
+        Route::post('admin/account/update', [UserController::class, 'updateAccountAdmin'])->name('admin.account.update');
     // password_change
     Route::get('admin/change_password', [UserController::class, 'change_passwordShow'])->name('admin.change_password.show');
     Route::post('admin/change_password', [UserController::class, 'change_passwordUpdate']);
