@@ -6,7 +6,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>Assign Class Teacher List </h1>
+                        <h1>Assign Class Teacher List ({{ $class_teachers->total() }})</h1>
                     </div>
                     <div class="col-sm-6" style="text-align: right">
                         <a href="{{ route('admin.assign_class_teacher.add.show') }}" class="btn btn-primary">Add Assign Class Teacher</a>
@@ -19,6 +19,46 @@
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">
+                <div class="card">
+                    <div class="card-header">
+                        <h3 class="card-title">Search Assign Teacher</h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                      <form action="" method="get">
+                        <div class="row p-1">
+                            <div class="form-group  col-md-3">
+                                <input type="text" class="form-control" name="class_name" value="{{ Request::get('class_name') }}"
+                                    placeholder="Enter Class Name">
+                            </div>
+                            <div class="form-group  col-md-3">
+                                <input type="text" class="form-control" name="teacher_name" value="{{ Request::get('teacher_name') }}"
+                                    placeholder="Enter Teacher Name">
+                            </div>
+                            <div class="form-group  col-md-3">
+                                <select name="status" class="form-control">
+                                    <option value="">Select Status</option>
+                                    <option {{ Request::get('status') == '0' ? 'selected' : '' }} value="0">Active
+                                    </option>
+                                    <option {{ Request::get('status') == '1' ? 'selected' : '' }} value="1">
+                                        Inactive</option>
+
+                                </select>
+                            </div>
+                            <div class="form-group  col-md-3">
+                                <input type="date" class="form-control" name="date"
+                                    value="{{ Request::get('date') }}">
+                            </div>
+                            <div class="form-group col-md-3 d-flex align-items-center">
+                                <button class="btn btn-primary btn-outlook mr-2" type="submit">Search</button>
+                                <a href="{{ route('admin.assign_class_teacher.list') }}" class="btn btn-success btn-outlook"
+                                    role="button">Reset</a>
+                            </div>
+                        </div>
+                      </form>
+                    </div>
+                    <!-- /.card-body -->
+                </div>
                 <!-- Small boxes (Stat box) -->
                 <div class="row">
                     <div class="col-12">

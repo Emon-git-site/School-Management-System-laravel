@@ -33,7 +33,7 @@
                             </div>
                             <div class="form-group  col-md-3">
                                 <select class="form-control" name="type" required>
-                                    <option value="">Choose One</option>
+                                    <option value="">Choose Subject Type</option>
                                     <option value="Theory">Theory</option>
                                     <option value="Practical">Practical</option>
                                 </select>
