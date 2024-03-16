@@ -101,11 +101,11 @@ Route::group(['middleware' => 'admin'], function () {
         Route::get('admin/assign_class_teacher/list', [AssignClassTeacherController::class, 'list'])->name('admin.assign_class_teacher.list');
         Route::get('admin/assign_class_teacher/add', [AssignClassTeacherController::class, 'add'])->name('admin.assign_class_teacher.add.show');
         Route::post('admin/assign_class_teacher/add', [AssignClassTeacherController::class, 'insert'])->name('admin.assign_class_teacher.add.perform');
-        Route::get('admin/assign_class_teacher/edit/{class_subject}', [AssignClassTeacherController::class, 'edit']);
-        Route::post('admin/assign_class_teacher/update/{class_subject}', [AssignClassTeacherController::class, 'update']);
-        Route::get('admin/assign_class_teacher/edit-single/{class_subject}', [AssignClassTeacherController::class, 'editSingle']);
-        Route::post('admin/assign_class_teacher/update-single/{class_subject}', [AssignClassTeacherController::class, 'updateSingle']);
-        Route::get('admin/assign_class_teacher/delete/{class_subject}', [AssignClassTeacherController::class, 'destroy']);
+        Route::get('admin/assign_class_teacher/edit/{class_teacher_id}', [AssignClassTeacherController::class, 'edit']);
+        Route::post('admin/assign_class_teacher/update/{class_teacher}', [AssignClassTeacherController::class, 'update'])->name('admin.assign_class_teacher.update');
+        Route::get('admin/assign_class_teacher/edit-single/{class_teacher}', [AssignClassTeacherController::class, 'editSingle']);
+        Route::post('admin/assign_class_teacher/update-single/{class_teacher}', [AssignClassTeacherController::class, 'updateSingle']);
+        Route::get('admin/assign_class_teacher/delete/{class_teacher}', [AssignClassTeacherController::class, 'destroy']);
 
     // account
     Route::get('admin/account/edit', [UserController::class, 'myAccount'])->name('admin.account.edit');
