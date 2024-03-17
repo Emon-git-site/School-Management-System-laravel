@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use DB;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Assign_class_teacher extends Model
 {
@@ -52,6 +53,26 @@ class Assign_class_teacher extends Model
             ->paginate(4);
 
         return $return;
+    }
+
+    static public function getMyClassSubject($teacher_id)
+    {
+        $return = self::select('assign_class_teachers.*', 'classes.name as class_name', 'subjects.name as subject_name', 'subjects.type as subject_type')
+        ->join('classes', 'classes.id', 'assign_class_teachers.classe_id')
+        ->where('classes.is_delete', 0)
+        ->where('classes.status', 0)
+        ->where('assign_class_teachers.teacher_id', $teacher_id)
+        ->where('assign_class_teachers.is_delete', 0)
+        ->where('assign_class_teachers.status', 0)
+        ->join('class_subjects', 'class_subjects.classe_id', 'assign_class_teachers.classe_id')
+        ->where('class_subjects.is_delete', 0)
+        ->where('class_subjects.status', 0)
+        ->join('subjects', 'subjects.id', 'class_subjects.subject_id')
+        ->where('subjects.is_delete', 0)
+        ->where('subjects.status', 0)
+        ->get();
+return $return;
+
     }
 
     static public function getAlreadyFirst($class_id, $teacher_id)

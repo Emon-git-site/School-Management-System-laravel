@@ -12,6 +12,7 @@ use App\Http\Controllers\admin\ClassController;
 use App\Http\Controllers\admin\SubjectController;
 use App\Http\Controllers\admin\Class_subjectController;
 use App\Http\Controllers\AssignClassTeacherController;
+use App\Models\Assign_class_teacher;
 
 /*
 |--------------------------------------------------------------------------
@@ -119,6 +120,9 @@ Route::group(['middleware' => 'admin'], function () {
 Route::group(['middleware' => 'teacher'], function () {
     // dashboard
     Route::get('teacher/dashboard', [DashboardController::class, 'dashboard'])->name('teacher.dashboard');
+
+    // my_class_subjec
+    Route::get('teacher/my_class_subject', [AssignClassTeacherController::class, 'MyClassSubject'])->name('teacher.my_class_subject');
 
     // account
     Route::get('teacher/account/edit', [UserController::class, 'myAccount'])->name('teacher.account.edit');
