@@ -67,10 +67,10 @@
                             </p>
                         </a>
                     </li>
-                    <li class="nav-item @if (Request::segment(2) == 'class' || Request::segment(2) == 'subject' ||
-                     Request::segment(2) == 'assign-subject' || Request::segment(2) == 'assign_class_teacher') menu-is-opening menu-open @endif">
-                        <a href="#" class="nav-link @if (Request::segment(2) == 'class' || Request::segment(2) == 'subject' ||
-                         Request::segment(2) == 'assign-subject' || Request::segment(2) == 'assign_class_teacher') active @endif">
+                    <li class="nav-item {{ in_array(Request::segment(2), ['class', 'subject', 'assign-subject',
+                     'assign_class_teacher', 'class_timetable']) ? 'menu-is-opening menu-open' : '' }}">
+                        <a href="#" class="nav-link {{ in_array(Request::segment(2), ['class', 'subject', 
+                        'assign-subject', 'assign_class_teacher', 'class_timetable']) ? 'active' : '' }}">
                           <i class="nav-icon fas fa-table"></i>
                           <p>
                             Academics
@@ -94,6 +94,12 @@
                             <a href="{{ route('admin.assign-subject.list') }}" class="nav-link @if (Request::segment(2) == 'assign-subject') active @endif">
                               <i class="far fa-circle nav-icon"></i>
                               <p>Assign Subject</p>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a href="{{ route('admin.class_timetable.list') }}" class="nav-link @if (Request::segment(2) == 'class_timetable') active @endif">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Class Timetable</p>
                             </a>
                           </li>
                           <li class="nav-item">
