@@ -121,6 +121,9 @@ Route::group(['middleware' => 'teacher'], function () {
     // dashboard
     Route::get('teacher/dashboard', [DashboardController::class, 'dashboard'])->name('teacher.dashboard');
 
+    // my student
+    Route::get('teacher/my_student', [StudentController::class, 'myStudent'])->name('teacher.my_student');
+
     // my_class_subjec
     Route::get('teacher/my_class_subject', [AssignClassTeacherController::class, 'MyClassSubject'])->name('teacher.my_class_subject');
 

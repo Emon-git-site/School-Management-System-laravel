@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Support\Str;
 use App\Models\admin\Classe;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class StudentController extends Controller
@@ -101,5 +102,12 @@ class StudentController extends Controller
         $student->save();
         toastr()->addsuccess('Student Successfully Deleted');
         return redirect()->route('admin.student.list');
+    }
+
+    public function myStudent()
+    {
+        $data['header_title'] = 'My Student List';
+        $data['students'] = User::getTeacherStudent(Auth::user()->id);
+        return view('teacher.my_student', $data);
     }
 }

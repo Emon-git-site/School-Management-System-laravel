@@ -124,7 +124,7 @@ class AssignClassTeacherController extends Controller
                 $getAlreadyFirst->status = $request->status;
                 $getAlreadyFirst->save();
                 toastr()->addsuccess('Subject status Successfully Updated');
-                return redirect()->route('admin.assign-subject.list');
+                return redirect()->route('admin.assign_class_teacher.list');
             } else {
                 $class_teacher->classe_id = $request->classe_id;
                 $class_teacher->teacher_id = $request->teacher_id;

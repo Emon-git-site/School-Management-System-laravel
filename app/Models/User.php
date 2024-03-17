@@ -257,6 +257,23 @@ class User extends Authenticatable
         return $return;
     }
 
+    static public function getTeacherStudent($teacher_id)
+    {
+        $return = self::select('users.*', 'classes.name as class_name')
+            ->join('classes', 'classes.id', 'users.classe_id')
+            ->join('assign_class_teachers', 'assign_class_teachers.classe_id', 'classes.id')
+            ->where('assign_class_teachers.teacher_id', $teacher_id)
+            ->where('users.user_type', 3)
+            ->where('users.is_delete', 0)
+            ->where('users.status', 0)
+            ->where('classes.is_delete', 0)
+            ->where('classes.status', 0)
+            ->orderBy('users.id', 'desc')
+            ->groupBy('users.id')
+            ->paginate(20);
+        return $return;
+    }
+
     static public function getSearchStudent()
     {
         if(!empty(Request('id')) || !empty(Request('name')) || !empty(Request('last_name')) || !empty(Request('email')))
