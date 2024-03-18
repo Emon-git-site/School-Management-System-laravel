@@ -31,13 +31,13 @@ class Class_subjectController extends Controller
     {
         if (!empty($request->subject_id)) {
             foreach ($request->subject_id as $subject_id) {
-                $getAlreadyFirst = Class_subject::getAlreadyFirst($request->class_id, $subject_id);
+                $getAlreadyFirst = Class_subject::getAlreadyFirst($request->classe_id, $subject_id);
                 if (!empty($getAlreadyFirst)) {
                     $getAlreadyFirst->status = $request->status;
                     $getAlreadyFirst->save();
                 } else {
                     $class_subject = new Class_subject;
-                    $class_subject->classe_id = $request->class_id;
+                    $class_subject->classe_id = $request->classe_id;
                     $class_subject->subject_id = $subject_id;
                     $class_subject->status = $request->status;
                     $class_subject->created_by = Auth::user()->id;
