@@ -90,6 +90,5 @@ class SubjectController extends Controller
          $data['mySubjects'] = Class_subject::mySubjectName($student->classe_id);
          $data['header_title'] = 'Student Subject';
          return view('parent.my_student_subject', $data);
-
     }
 }

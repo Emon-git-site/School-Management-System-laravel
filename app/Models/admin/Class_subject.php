@@ -5,10 +5,10 @@ namespace App\Models\admin;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Class_subject extends Model
+class  Class_subject extends Model
 {
     use HasFactory;
-    protected $fillable = [
+    protected $fillable = [ 
         'classe_id',
         'subject_id',
         'created_by',

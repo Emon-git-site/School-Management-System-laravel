@@ -153,6 +153,7 @@ Route::group(['middleware' => 'student'], function () {
 
     // subject
     Route::get('student/my_subject', [SubjectController::class, 'MySubject'])->name('student.my_subject');
+    Route::get('student/my_timetable', [Class_TimeTableController::class, 'MyTimetable'])->name('student.my_timetable');
 
     // password_change
     Route::get('student/change_password', [UserController::class, 'change_passwordShow'])->name('student.change_password.show');

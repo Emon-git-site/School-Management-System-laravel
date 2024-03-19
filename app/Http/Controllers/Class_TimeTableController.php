@@ -6,6 +6,7 @@ use App\Models\WeekModel1;
 use App\Models\admin\Classe;
 use Illuminate\Http\Request;
 use App\Models\admin\Class_subject;
+use Illuminate\Support\Facades\Auth;
 use App\Models\ClassSubjectTimetable;
 
 class Class_TimeTableController extends Controller
@@ -90,5 +91,41 @@ class Class_TimeTableController extends Controller
         toastr()->addsuccess('Class Timetable Successfully Saved');
         return redirect()->back();
     }
+
+    public function MyTimetable(Request $request)
+    {
+        $result = array();
+        $mySubjects = Class_subject::mySubjectName(Auth::user()->classe_id);
+        foreach($mySubjects as $mySubject)
+        {
+            $data['subject_name'] = $mySubject->subject_name;
+            $getWeeks = WeekModel1::getWeekRecord();
+            $week = array();
+            foreach($getWeeks as $getWeek)
+            {
+                $dataW = array();
+                $dataW['week_name'] = $getWeek->name;
+                $class_subject = ClassSubjectTimetable::getRecordClassSubject($mySubject->classe_id, $mySubject->subject_id, $getWeek->id);
+                if(!empty($class_subject))
+                {
+                    $dataW['start_time'] = $class_subject->start_time;
+                    $dataW['end_time'] = $class_subject->end_time;
+                    $dataW['room_number'] = $class_subject->room_number;
+                }
+                else
+                {
+                    $dataW['start_time'] = '';
+                    $dataW['end_time'] = '';
+                    $dataW['room_number'] = '';
+                }
+                $week[] = $dataW;
+            }
+            $data['week'] = $week;
+            $result[] = $data;
+        }
+        $data['class_schedules'] =$result;
+        // dd($data['class_schedules']);
+        $data['header_title'] = 'MY Timetable';
+        return view('student.my_timetable', $data);
+    }
 }
-;
