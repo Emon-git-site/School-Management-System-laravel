@@ -102,6 +102,7 @@ Route::group(['middleware' => 'admin'], function () {
     // class time table route
     Route::get('admin/class_timetable/list', [Class_TimeTableController::class, 'list'])->name('admin.class_timetable.list');
     Route::post('admin/class_timetable/get_subject', [Class_TimeTableController::class, 'get_subject'])->name('admin.class_timetable.get_subject');
+    Route::post('admin/class_timetable/add', [Class_TimeTableController::class, 'insert_update'])->name('admin.class_timetable.add');
 
 
     // assign-class-teacher route

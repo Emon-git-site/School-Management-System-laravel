@@ -6,6 +6,7 @@ use App\Models\WeekModel1;
 use App\Models\admin\Classe;
 use Illuminate\Http\Request;
 use App\Models\admin\Class_subject;
+use App\Models\ClassSubjectTimetable;
 
 class Class_TimeTableController extends Controller
 {
@@ -23,11 +24,33 @@ class Class_TimeTableController extends Controller
             $dataW = array();
             $dataW['week_id'] = $getWeek->id;
             $dataW['week_name'] = $getWeek->name;
+            if(!empty($request->class_id) && !empty($request->subject_id))
+            {
+                $class_subject = ClassSubjectTimetable::getRecordClassSubject($request->class_id, $request->subject_id, $getWeek->id);
+                if(!empty($class_subject))
+                {
+                    $dataW['start_time'] = $class_subject->start_time;
+                    $dataW['end_time'] = $class_subject->end_time;
+                    $dataW['room_number'] = $class_subject->room_number;
+                }
+                else
+                {
+                    $dataW['start_time'] = '';
+                    $dataW['end_time'] = '';
+                    $dataW['room_number'] = '';
+                }
+            }
+            else
+            {
+                $dataW['start_time'] = '';
+                $dataW['end_time'] = '';
+                $dataW['room_number'] = '';
+            }
             $week[] = $dataW;
         }
         $data['weeks'] = $week;
         $data['getClass'] = Classe::getClass();
-        $data['header_title'] = 'Class Timetable List';
+        $data['header_title'] = 'Class Timetable';
         return view('admin.class_timetable.list', $data);
     }
 
@@ -47,6 +70,25 @@ class Class_TimeTableController extends Controller
         return response()->json($json);
     }
     
-
+    public function insert_update(Request $request)
+    {
+        ClassSubjectTimetable::where('classe_id', $request->class_id)->where('subject_id', $request->subject_id)->delete();
+        foreach($request->timetable as $timetable)
+        {
+            if(!empty($timetable['week_id']) && !empty($timetable['start_time']) && !empty($timetable['end_time']) && !empty($timetable['room_number']))
+            {
+                $class_subject_timetable = new ClassSubjectTimetable();
+                $class_subject_timetable->classe_id = $request->class_id;
+                $class_subject_timetable->subject_id = $request->subject_id;
+                $class_subject_timetable->week_id = $timetable['week_id'];
+                $class_subject_timetable->start_time = $timetable['start_time'];
+                $class_subject_timetable->end_time = $timetable['end_time'];
+                $class_subject_timetable->room_number = $timetable['room_number'];
+                $class_subject_timetable->save();
+            }
+        }
+        toastr()->addsuccess('Class Timetable Successfully Saved');
+        return redirect()->back();
+    }
 }
 ;

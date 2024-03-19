@@ -60,6 +60,10 @@
                 </div>
 
                 @if(!empty(Request('class_id')) && !empty(Request('subject_id')) )
+                <form action="{{ route('admin.class_timetable.add') }}" method="post">
+                    @csrf
+                    <input type="hidden" name="subject_id" value="{{ Request('subject_id') }}">
+                    <input type="hidden" name="class_id" value="{{ Request('class_id') }}">
                 <div class="card">
                     <div class="card-header">
                         <h3 class="card-title">Class Timetable</h3>
@@ -78,19 +82,28 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                @php
+                                    $i = 1;
+                                @endphp
                                 @foreach ($weeks as $week)
                                     <tr>
-                                        <td>{{ $week['week_name'] }}</td>
+                                        <th>
+                                            <input type="hidden" name="timetable[{{ $i }}][week_id]" value="{{ $week['week_id'] }}">
+                                            {{ $week['week_name'] }}
+                                        </th>
                                         <td>
-                                            <input type="time" name="start_date" class="form-control">
+                                            <input type="time" name="timetable[{{ $i }}][start_time]" value="{{ $week['start_time'] }}" class="form-control">
                                         </td>
                                         <td>
-                                            <input type="time" name="end_date" class="form-control">
+                                            <input type="time" name="timetable[{{ $i }}][end_time]" value="{{ $week['end_time'] }}" class="form-control">
                                         </td>
                                         <td>
-                                            <input type="text" style="width: 200px" name="room_number" class="form-control">
+                                            <input type="text" style="width: 200px" name="timetable[{{ $i }}][room_number]" value="{{ $week['room_number'] }}" class="form-control">
                                         </td>
                                     </tr>
+                                    @php
+                                    $i++;
+                                @endphp
                                 @endforeach
                             </tbody>
                         </table>
@@ -100,6 +113,7 @@
                     </div>
                     <!-- /.card-body -->
                 </div>
+            </form>
                 @endif
             </div><!-- /.container-fluid -->
         </section>
