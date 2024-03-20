@@ -35,6 +35,7 @@
                                             <th>Subject Name</th>
                                             <th>Subject Type</th>
                                             <th>Created Date</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -45,7 +46,10 @@
                                                 <td>{{ $myClassSubject->subject_name }}</td>
                                                 <td>{{ $myClassSubject->subject_type }}</td>
                                                 <td>{{ date('d-m-Y h:i A', strtotime($myClassSubject->created_at)) }}</td>
-
+                                                <td>
+                                                    <a href="{{ route('teacher.my_class_subject.class_timetable', ['classe_id' => $myClassSubject->classe_id, 
+                                                    'subject_id' => $myClassSubject->subject_id]) }}"   class="btn btn-primary">My Class Timetable</a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>

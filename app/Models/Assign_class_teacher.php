@@ -57,7 +57,7 @@ class Assign_class_teacher extends Model
 
     static public function getMyClassSubject($teacher_id)
     {
-        $return = self::select('assign_class_teachers.*', 'classes.name as class_name', 'subjects.name as subject_name', 'subjects.type as subject_type')
+        $return = self::select('assign_class_teachers.*', 'classes.name as class_name', 'subjects.name as subject_name', 'subjects.type as subject_type', 'classes.id as classe_id', 'subjects.id as subject_id')
         ->join('classes', 'classes.id', 'assign_class_teachers.classe_id')
         ->where('classes.is_delete', 0)
         ->where('classes.status', 0)

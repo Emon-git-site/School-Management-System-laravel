@@ -6,11 +6,14 @@ use App\Models\WeekModel1;
 use App\Models\admin\Classe;
 use Illuminate\Http\Request;
 use App\Models\admin\Class_subject;
+use App\Models\admin\Subject;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ClassSubjectTimetable;
 
 class Class_TimeTableController extends Controller
 {
+
+    // admin side
     public function list(Request $request)
     {
         if(!empty($request->class_id))
@@ -55,7 +58,7 @@ class Class_TimeTableController extends Controller
         return view('admin.class_timetable.list', $data);
     }
 
-
+    // admin side get subject after selecting class
     public function get_subject(Request $request)
     {
         $getSubject = Class_subject::mySubjectName($request->class_id);
@@ -71,6 +74,7 @@ class Class_TimeTableController extends Controller
         return response()->json($json);
     }
     
+    // admin side time insert and update for a  specific subject
     public function insert_update(Request $request)
     {
         ClassSubjectTimetable::where('classe_id', $request->class_id)->where('subject_id', $request->subject_id)->delete();
@@ -92,6 +96,7 @@ class Class_TimeTableController extends Controller
         return redirect()->back();
     }
 
+    // student side time table
     public function MyTimetable(Request $request)
     {
         $result = array();
@@ -124,8 +129,37 @@ class Class_TimeTableController extends Controller
             $result[] = $data;
         }
         $data['class_schedules'] =$result;
-        // dd($data['class_schedules']);
         $data['header_title'] = 'MY Timetable';
         return view('student.my_timetable', $data);
+    }
+
+    // teacher side class time table
+    public  function MyTimetableTeacher($class_id, $subject_id)
+    {
+        $data['getClass'] = Classe::find($class_id);
+        $data['getSubject'] = Subject::find($subject_id);
+            $getWeeks = WeekModel1::getWeekRecord();
+            foreach($getWeeks as $getWeek)
+            {
+                $dataW = array();
+                $dataW['week_name'] = $getWeek->name;
+                $class_subject = ClassSubjectTimetable::getRecordClassSubject($class_id, $subject_id, $getWeek->id);
+                if(!empty($class_subject))
+                {
+                    $dataW['start_time'] = $class_subject->start_time;
+                    $dataW['end_time'] = $class_subject->end_time;
+                    $dataW['room_number'] = $class_subject->room_number;
+                }
+                else
+                {
+                    $dataW['start_time'] = '';
+                    $dataW['end_time'] = '';
+                    $dataW['room_number'] = '';
+                }
+                $result[] = $dataW;
+            }
+        $data['class_schedules'] =$result;
+        $data['header_title'] = 'MY Timetable';
+        return view('teacher.my_timetable', $data);
     }
 }
