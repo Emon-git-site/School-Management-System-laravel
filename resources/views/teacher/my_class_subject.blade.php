@@ -34,6 +34,7 @@
                                             <th>Class Name</th>
                                             <th>Subject Name</th>
                                             <th>Subject Type</th>
+                                            <th>My Class Timetable</th>
                                             <th>Created Date</th>
                                             <th>Action</th>
                                         </tr>
@@ -45,6 +46,16 @@
                                                 <td>{{ $myClassSubject->class_name }}</td>
                                                 <td>{{ $myClassSubject->subject_name }}</td>
                                                 <td>{{ $myClassSubject->subject_type }}</td>
+                                                <td>
+                                                    @php
+                                                    $class_subject = $myClassSubject->getMyTimeTable($myClassSubject->classe_id, $myClassSubject->subject_id);
+                                                @endphp
+                                                @if (!empty($class_subject))
+                                                    {{ date('h:i A', strtotime($class_subject->start_time)) }} to {{ date('h:i A', strtotime($class_subject->end_time)) }}
+                                                    <br>
+                                                    Room number: {{ $class_subject->room_number }}
+                                                @endif     
+                                                </td>
                                                 <td>{{ date('d-m-Y h:i A', strtotime($myClassSubject->created_at)) }}</td>
                                                 <td>
                                                     <a href="{{ route('teacher.my_class_subject.class_timetable', ['classe_id' => $myClassSubject->classe_id, 

@@ -58,21 +58,20 @@ class Assign_class_teacher extends Model
     static public function getMyClassSubject($teacher_id)
     {
         $return = self::select('assign_class_teachers.*', 'classes.name as class_name', 'subjects.name as subject_name', 'subjects.type as subject_type', 'classes.id as classe_id', 'subjects.id as subject_id')
-        ->join('classes', 'classes.id', 'assign_class_teachers.classe_id')
-        ->where('classes.is_delete', 0)
-        ->where('classes.status', 0)
-        ->where('assign_class_teachers.teacher_id', $teacher_id)
-        ->where('assign_class_teachers.is_delete', 0)
-        ->where('assign_class_teachers.status', 0)
-        ->join('class_subjects', 'class_subjects.classe_id', 'assign_class_teachers.classe_id')
-        ->where('class_subjects.is_delete', 0)
-        ->where('class_subjects.status', 0)
-        ->join('subjects', 'subjects.id', 'class_subjects.subject_id')
-        ->where('subjects.is_delete', 0)
-        ->where('subjects.status', 0)
-        ->get();
-return $return;
-
+            ->join('classes', 'classes.id', 'assign_class_teachers.classe_id')
+            ->where('classes.is_delete', 0)
+            ->where('classes.status', 0)
+            ->where('assign_class_teachers.teacher_id', $teacher_id)
+            ->where('assign_class_teachers.is_delete', 0)
+            ->where('assign_class_teachers.status', 0)
+            ->join('class_subjects', 'class_subjects.classe_id', 'assign_class_teachers.classe_id')
+            ->where('class_subjects.is_delete', 0)
+            ->where('class_subjects.status', 0)
+            ->join('subjects', 'subjects.id', 'class_subjects.subject_id')
+            ->where('subjects.is_delete', 0)
+            ->where('subjects.status', 0)
+            ->get();
+        return $return;
     }
 
     static public function getAlreadyFirst($class_id, $teacher_id)
@@ -84,5 +83,16 @@ return $return;
     static public function deleteTeacher($class_id)
     {
         return self::where('classe_id', $class_id)->delete();
+    }
+
+static public function ala($a,$b){
+    return $a+$b;
+}
+
+    static public function getMyTimeTable($class_id, $subject_id)
+    {
+        $getWeek = WeekModel1::getWeekUsingName(date('l'));
+        return ClassSubjectTimetable::getRecordClassSubject($class_id, $subject_id, $getWeek->id);
+
     }
 }
