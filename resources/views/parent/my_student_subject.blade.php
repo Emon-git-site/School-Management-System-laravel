@@ -27,6 +27,7 @@
                                         <tr>
                                             <th>Subject Name</th>
                                             <th>Subject Type</th>
+                                            <th>Action</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -34,6 +35,10 @@
                                             <tr>
                                                 <td>{{ $mySubject->subject_name }}</td>
                                                 <td>{{ $mySubject->subject_type }}</td>
+                                                <td>
+                                                    <a href="{{ route('parent.my_student.subject.timetable', ['classe_id' => $mySubject->classe_id, 
+                                                        'subject_id' => $mySubject->subject_id, 'student_id' => $student->id]) }}"   class="btn btn-primary">My Class Timetable</a>
+                                                </td>
                                             </tr>
                                         @endforeach
                                     </tbody>
