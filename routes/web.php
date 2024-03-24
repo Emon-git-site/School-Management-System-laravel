@@ -116,7 +116,7 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/assign_class_teacher/update-single/{class_teacher}', [AssignClassTeacherController::class, 'updateSingle']);
     Route::get('admin/assign_class_teacher/delete/{class_teacher}', [AssignClassTeacherController::class, 'destroy']);
 
-    // Examination  route
+    // Exam  route
     Route::get('admin/examinations/exam/list', [ExaminationController::class, 'exam_list'])->name('admin.examinations.exam.list');
     Route::get('admin/examinations/exam/add', [ExaminationController::class, 'exam_create'])->name('admin.examinations.exam.add.show');
     Route::post('admin/examinations/exam/add', [ExaminationController::class, 'exam_insert'])->name('admin.examinations.exam.add.perform');
@@ -124,11 +124,16 @@ Route::group(['middleware' => 'admin'], function () {
     Route::post('admin/examinations/exam/update/{exam_id}', [ExaminationController::class, 'exam_update'])->name('admin.examinations.exam.update');
     Route::get('admin/examinations/exam/delete/{exam_id}', [ExaminationController::class, 'exam_destroy'])->name('admin.examinations.exam.delete');
 
+    // Exam Schedule route
+    Route::get('admin/examinations/exam_schedule', [ExaminationController::class, 'exam_schedule'])->name('admin.examinations.exam_schedule');
+    Route::post('admin/examinations/exam_schedule/add', [ExaminationController::class, 'exam_schedule_insert'])->name('admin.examinations.exam_schedule.add.perform');
+
+
     // account
     Route::get('admin/account/edit', [UserController::class, 'myAccount'])->name('admin.account.edit');
     Route::post('admin/account/update', [UserController::class, 'updateAccountAdmin'])->name('admin.account.update');
     // password_change
-    Route::get('admin/change_password', [UserController::class, 'change_passwordShow'])->name('admin.change_password.show');
+    Route::get('admin/change_password', [UserController::class, 'change_passwordShow'])->name('admin.change_password.show'); 
     Route::post('admin/change_password', [UserController::class, 'change_passwordUpdate']);
 });
 

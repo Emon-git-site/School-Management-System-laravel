@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Controllers\admin\Class_subjectController;
+use App\Models\admin\Classe;
 use App\Models\ExamModel;
+use App\Models\admin\Class_subject;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Auth;
 
 class ExaminationController extends Controller
@@ -72,5 +76,33 @@ class ExaminationController extends Controller
         {
             abort(404);
         }
+    }
+
+    public function exam_schedule(Request $request)
+    {
+        $data['getClass'] = Classe::getClass();
+        $data['getExam'] = ExamModel::getExam();
+        $result = array();
+        if(!empty(Request('exam_id')) && !empty(Request('class_id')))
+        {
+            $class_Subjects = Class_subject::mySubjectName(Request('class_id'));
+               foreach($class_Subjects as $class_Subject)
+               {
+                $dataS = array();
+                $dataS['subject_id'] = $class_Subject->subject_id;
+                $dataS['class_id'] = $class_Subject->classe_id;
+                $dataS['subject_name'] = $class_Subject->subject_name;
+                $dataS['subject_type'] = $class_Subject->subject_type;
+                $result[] = $dataS;
+               }
+        }
+        $data['class_subjects'] = $result;
+        $data['header_title'] = 'Exam Schedule';
+        return view('admin.examinations.exam_schedule', $data);
+    }
+
+    public function exam_schedule_insert(Request $request)
+    {
+        dd($request->all());
     }
 }

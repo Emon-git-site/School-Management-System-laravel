@@ -61,7 +61,6 @@ class  Class_subject extends Model
         return self::where('classe_id', $class_id)->delete();
     }
 
-    // student
     static public function mySubjectName($class_id)
     {
         return  self::select('class_subjects.*', 'subjects.name as subject_name', 'subjects.type as subject_type')

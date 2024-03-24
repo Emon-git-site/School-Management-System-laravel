@@ -110,9 +110,9 @@
                           </li>
                         </ul>
                       </li>
-                    <li class="nav-item {{ in_array(Request::segment(2), ['examinations', 'subject', 'assign-subject',
+                    <li class="nav-item {{ in_array(Request::segment(3), ['exam', 'exam_schedule', 'assign-subject',
                      'assign_class_teacher', 'class_timetable']) ? 'menu-is-opening menu-open' : '' }}">
-                        <a href="#" class="nav-link {{ in_array(Request::segment(2), ['examinations', 'subject', 
+                        <a href="#" class="nav-link {{ in_array(Request::segment(3), ['exam', 'exam_schedule', 
                         'assign-subject', 'assign_class_teacher', 'class_timetable']) ? 'active' : '' }}">
                           <i class="nav-icon fas fa-table"></i>
                           <p>
@@ -122,9 +122,15 @@
                         </a>
                         <ul class="nav nav-treeview">
                           <li class="nav-item">
-                            <a href="{{ route('admin.examinations.exam.list') }}" class="nav-link @if (Request::segment(2) == 'class') active @endif">
+                            <a href="{{ route('admin.examinations.exam.list') }}" class="nav-link @if (Request::segment(3) == 'exam') active @endif">
                               <i class="far fa-circle nav-icon"></i>
                               <p>Exam</p>
+                            </a>
+                          </li>
+                          <li class="nav-item">
+                            <a href="{{ route('admin.examinations.exam_schedule') }}" class="nav-link @if (Request::segment(3) == 'exam_schedule') active @endif">
+                              <i class="far fa-circle nav-icon"></i>
+                              <p>Exam Schedule</p>
                             </a>
                           </li>
                         </ul>

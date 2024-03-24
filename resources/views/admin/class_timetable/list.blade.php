@@ -33,9 +33,6 @@
                                         @endforeach
                                     </select>
                                 </div>
-                                {{-- @php 
-                                dd($getSubject);
-                                @endphp --}}
                                 <div class="form-group  col-md-3">
                                     <select class="form-control getSubject" name="subject_id" required>
                                         <option value="">Select Subject</option>
