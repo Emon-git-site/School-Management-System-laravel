@@ -13,7 +13,6 @@ class AdminController extends Controller
     public function list()
     {
         $data['header_title'] = 'Admin List';
-        // $data['admins'] = User::where('user_type', 1)->where('is_delete', 0)->latest()->paginate(2);
         $data['admins'] = User::getAdmin();
         return view('admin.admin.list', $data);
     }
