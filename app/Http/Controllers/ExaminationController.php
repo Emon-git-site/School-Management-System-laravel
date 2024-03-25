@@ -2,13 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Controllers\admin\Class_subjectController;
-use App\Models\admin\Classe;
 use App\Models\ExamModel;
-use App\Models\admin\Class_subject;
-use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
+use App\Models\admin\Classe;
+use Illuminate\Http\Request;
+use App\Models\ExamSchedulModel;
+use App\Models\admin\Class_subject;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\admin\Class_subjectController;
 
 class ExaminationController extends Controller
 {
@@ -93,6 +94,9 @@ class ExaminationController extends Controller
                 $dataS['class_id'] = $class_Subject->classe_id;
                 $dataS['subject_name'] = $class_Subject->subject_name;
                 $dataS['subject_type'] = $class_Subject->subject_type;
+
+                $exam_schedule = ExamSchedulModel::getRecordSingle($request('exam_id'), $request('class_id'), $request('subject_id'))
+
                 $result[] = $dataS;
                }
         }
@@ -103,6 +107,31 @@ class ExaminationController extends Controller
 
     public function exam_schedule_insert(Request $request)
     {
-        dd($request->all());
+        if(!empty($request->schedule))
+        {
+            foreach($request->schedule as $schedule)
+            {
+                if(!empty($schedule['subject_id']) && !empty($schedule['exam_date']) && 
+                !empty($schedule['start_time']) && !empty($schedule['end_time']) &&
+                !empty($schedule['room_number']) && !empty($schedule['full_marks']) &&
+                !empty($schedule['passing_marks']))
+                {
+                    $exam_schedule = ExamSchedulModel::create([
+                        'exam_id' => $request->exam_id,
+                        'class_id' => $request->class_id,
+                        'subject_id' => $schedule['subject_id'],
+                        'exam_date' => $schedule['exam_date'],
+                        'start_time' => $schedule['start_time'],
+                        'end_time' => $schedule['end_time'],
+                        'room_number' => $schedule['room_number'],
+                        'full_marks' => $schedule['full_marks'],
+                        'passing_marks' => $schedule['passing_marks'],
+                        'created_by' => Auth::user()->id
+                    ]);
+                }
+            }
+            toastr()->addsuccess('Exam Schedule Successfully Saved');
+            return redirect()->back();
+        }
     }
 }

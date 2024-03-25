@@ -106,7 +106,7 @@
                                                     <input type="text" class="form-control" name="schedule[{{ $i }}][full_marks]">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="schedule[{{ $i }}][passing_mark]">
+                                                    <input type="text" class="form-control" name="schedule[{{ $i }}][passing_marks]">
                                                 </td>
                                             </tr>
                                         @php
