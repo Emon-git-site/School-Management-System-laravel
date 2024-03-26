@@ -88,25 +88,43 @@ class ExaminationController extends Controller
         {
             $class_Subjects = Class_subject::mySubjectName(Request('class_id'));
                foreach($class_Subjects as $class_Subject)
-               {
+               {  
                 $dataS = array();
                 $dataS['subject_id'] = $class_Subject->subject_id;
                 $dataS['class_id'] = $class_Subject->classe_id;
                 $dataS['subject_name'] = $class_Subject->subject_name;
                 $dataS['subject_type'] = $class_Subject->subject_type;
 
-                $exam_schedule = ExamSchedulModel::getRecordSingle($request('exam_id'), $request('class_id'), $request('subject_id'))
-
+                $exam_schedule = ExamSchedulModel::getRecordSingle(Request('exam_id'), Request('class_id'), $class_Subject->subject_id);
+                if(!empty($exam_schedule))
+                {
+                    $dataS['exam_date'] = $exam_schedule->exam_date;
+                    $dataS['start_time'] = $exam_schedule->start_time;
+                    $dataS['end_time'] = $exam_schedule->end_time;
+                    $dataS['room_number'] = $exam_schedule->room_number;
+                    $dataS['full_marks'] = $exam_schedule->full_marks;
+                    $dataS['passing_marks'] = $exam_schedule->passing_marks;
+                }
+                else
+                {
+                    $dataS['exam_date'] = '';
+                    $dataS['start_time'] = '';
+                    $dataS['end_time'] = '';
+                    $dataS['room_number'] = '';
+                    $dataS['full_marks'] = '';
+                    $dataS['passing_marks'] = '';
+                }
                 $result[] = $dataS;
                }
         }
-        $data['class_subjects'] = $result;
+        $data['exam_schedules'] = $result;
         $data['header_title'] = 'Exam Schedule';
         return view('admin.examinations.exam_schedule', $data);
     }
 
     public function exam_schedule_insert(Request $request)
     {
+        ExamSchedulModel::deleteRecord(Request('exam_id'), Request('class_id'));
         if(!empty($request->schedule))
         {
             foreach($request->schedule as $schedule)

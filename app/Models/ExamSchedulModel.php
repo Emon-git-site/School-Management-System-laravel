@@ -27,4 +27,9 @@ class ExamSchedulModel extends Model
     {
         return self::where('exam_id', $exam_id)->where('class_id', $class_id)->where('subject_id', $subject_id)->first();
     }
+
+    static public function deleteRecord($exam_id, $class_id)
+    {
+        self::where('exam_id', $exam_id)->where('class_id', $class_id)->delete();
+    }
 }

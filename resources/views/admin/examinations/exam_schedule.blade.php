@@ -54,7 +54,7 @@
                     <!-- /.card-body -->
                 </div>
                 <!-- Small boxes (Stat box) -->
-                @if(!empty($class_subjects))
+                @if(!empty($exam_schedules))
                 <div class="row">
                     <div class="col-12">
                         <form action="{{ route('admin.examinations.exam_schedule.add.perform') }}" method="post">
@@ -85,28 +85,28 @@
                                         @php
                                             $i = 1;
                                         @endphp
-                                        @foreach ($class_subjects as $class_subject)
+                                        @foreach ($exam_schedules as $exam_schedule)
                                             <tr>
-                                                <td>{{ $class_subject['subject_name'] }}
-                                                    <input type="hidden" class="form-control" value="{{ $class_subject['subject_id'] }}" name="schedule[{{ $i }}][subject_id]">
+                                                <td>{{ $exam_schedule['subject_name'] }}
+                                                    <input type="hidden" class="form-control" value="{{ $exam_schedule['subject_id'] }}" name="schedule[{{ $i }}][subject_id]">
                                                 </td>
                                                 <td>
-                                                    <input type="date" class="form-control" name="schedule[{{ $i }}][exam_date]">
+                                                    <input type="date" class="form-control" value="{{ $exam_schedule['exam_date'] }}" name="schedule[{{ $i }}][exam_date]">
                                                 </td>
                                                 <td>
-                                                    <input type="time" class="form-control" name="schedule[{{ $i }}][start_time]">
+                                                    <input type="time" class="form-control" value="{{ $exam_schedule['start_time'] }}" name="schedule[{{ $i }}][start_time]">
                                                 </td>
                                                 <td>
-                                                    <input type="time" class="form-control" name="schedule[{{ $i }}][end_time]">
+                                                    <input type="time" class="form-control" value="{{ $exam_schedule['end_time'] }}" name="schedule[{{ $i }}][end_time]">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="schedule[{{ $i }}][room_number]">
+                                                    <input type="text" class="form-control" value="{{ $exam_schedule['room_number'] }}" name="schedule[{{ $i }}][room_number]">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="schedule[{{ $i }}][full_marks]">
+                                                    <input type="text" class="form-control" value="{{ $exam_schedule['full_marks'] }}" name="schedule[{{ $i }}][full_marks]">
                                                 </td>
                                                 <td>
-                                                    <input type="text" class="form-control" name="schedule[{{ $i }}][passing_marks]">
+                                                    <input type="text" class="form-control" value="{{ $exam_schedule['passing_marks'] }}" name="schedule[{{ $i }}][passing_marks]">
                                                 </td>
                                             </tr>
                                         @php
