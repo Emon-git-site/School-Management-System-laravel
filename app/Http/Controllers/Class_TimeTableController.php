@@ -98,7 +98,7 @@ class Class_TimeTableController extends Controller
     }
 
     // student side time table
-    public function MyTimetable(Request $request)
+    public function MyTimetableStudent(Request $request)
     {
         $result = array();
         $mySubjects = Class_subject::mySubjectName(Auth::user()->classe_id);

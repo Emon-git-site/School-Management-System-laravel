@@ -73,6 +73,19 @@ class Assign_class_teacher extends Model
             ->get();
         return $return;
     }
+    static public function getMyClassSubjectGroup($teacher_id)
+    {
+        $return = self::select('assign_class_teachers.*', 'classes.name as class_name', 'classes.id as class_id')
+            ->join('classes', 'classes.id', 'assign_class_teachers.classe_id')
+            ->where('classes.is_delete', 0)
+            ->where('classes.status', 0)
+            ->where('assign_class_teachers.teacher_id', $teacher_id)
+            ->where('assign_class_teachers.is_delete', 0)
+            ->where('assign_class_teachers.status', 0)
+            ->groupBy('assign_class_teachers.classe_id')
+            ->get();
+        return $return;
+    }
 
     static public function getAlreadyFirst($class_id, $teacher_id)
     {

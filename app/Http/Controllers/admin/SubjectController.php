@@ -74,7 +74,7 @@ class SubjectController extends Controller
     }
 
     // student side
-    public function MySubject()
+    public function MySubjectStudent()
     {
         $data['mySubjects'] = Class_subject::mySubjectName(Auth::user()->classe_id);
         $data['header_title'] = 'My Subject';

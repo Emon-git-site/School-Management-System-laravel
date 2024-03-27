@@ -146,12 +146,13 @@ Route::group(['middleware' => 'teacher'], function () {
     Route::get('teacher/my_student', [StudentController::class, 'myStudent'])->name('teacher.my_student');
 
     // my_class_subjec
-    Route::get('teacher/my_class_subject', [AssignClassTeacherController::class, 'MyClassSubject'])->name('teacher.my_class_subject');
-    Route::get('teacher/my_class_subject/class_timetable/{classe_id}/{subject_id}', [Class_TimeTableController::class, ''])->name('teacher.my_class_subject.class_timetable');
+    Route::get('teacher/my_class_subject', [AssignClassTeacherController::class, 'MyClassSubjectTeacher'])->name('teacher.my_class_subject');
+    Route::get('teacher/my_class_subject/class_timetable/{classe_id}/{subject_id}', [Class_TimeTableController::class, 'MyTimetableTeacher'])->name('teacher.my_class_subject.class_timetable');
+    Route::get('teacher/my_exam_timetable', [ExaminationController::class, 'MyExamTimetableTeacher'])->name('teacher.my_exam_timetable');
 
     // account
     Route::get('teacher/account/edit', [UserController::class, 'myAccount'])->name('teacher.account.edit');
-    Route::post('teacher/account/update', [UserController::class, 'updateAccount'])->name('teacher.account.update');
+    Route::post('teacher/account/update', [UserController::class, 'updateAccountTeacher'])->name('teacher.account.update');
 
     // password_change
     Route::get('teacher/change_password', [UserController::class, 'change_passwordShow'])->name('teacher.change_password.show');
@@ -167,9 +168,9 @@ Route::group(['middleware' => 'student'], function () {
     Route::post('student/account/update', [UserController::class, 'updateAccountStudent'])->name('student.account.update');
 
     // subject
-    Route::get('student/my_subject', [SubjectController::class, 'MySubject'])->name('student.my_subject');
-    Route::get('student/my_timetable', [Class_TimeTableController::class, 'MyTimetable'])->name('student.my_timetable');
-    Route::get('student/my_exam_timetable', [ExaminationController::class, 'MyExamTimetable'])->name('student.my_exam_timetable');
+    Route::get('student/my_subject', [SubjectController::class, 'MySubjectStudent'])->name('student.my_subject');
+    Route::get('student/my_timetable', [Class_TimeTableController::class, 'MyTimetableStudent'])->name('student.my_timetable');
+    Route::get('student/my_exam_timetable', [ExaminationController::class, 'MyExamTimetableStudent'])->name('student.my_exam_timetable');
 
     // password_change
     Route::get('student/change_password', [UserController::class, 'change_passwordShow'])->name('student.change_password.show');

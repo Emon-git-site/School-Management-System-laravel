@@ -34,7 +34,7 @@
                                             <th>Class Name</th>
                                             <th>Subject Name</th>
                                             <th>Subject Type</th>
-                                            <th>My Class Timetable</th>
+                                            <th>My Class Today Timetable</th>
                                             <th>Created Date</th>
                                             <th>Action</th>
                                         </tr>

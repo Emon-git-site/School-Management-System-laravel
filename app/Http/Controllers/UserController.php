@@ -48,7 +48,7 @@ class UserController extends Controller
         return redirect()->route('admin.account.edit');
     }
 
-    public function updateAccount(Request $request)
+    public function updateAccountTeacher(Request $request)
     {
         $teacher = User::getSingle(Auth::user()->id);
         request()->validate([

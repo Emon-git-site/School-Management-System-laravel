@@ -137,7 +137,7 @@ class AssignClassTeacherController extends Controller
     }
 
     // teacher side work
-    public function MyClassSubject()
+    public function MyClassSubjectTeacher()
     {
         $data['myClassSubjects'] = Assign_class_teacher::getMyClassSubject(Auth::user()->id);
         $data['header_title'] = 'My Class & Subject';
