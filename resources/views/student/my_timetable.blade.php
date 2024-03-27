@@ -18,7 +18,7 @@
                 @foreach ($class_schedules as $class_schedule)                    
                 <div class="card">
                     <div class="card-header">
-                        <h3 class="card-title">{{ $class_schedule['subject_name'] }}</h3>
+                        <h3 class="card-title" style="color: rgb(103, 235, 217);">{{ $class_schedule['subject_name'] }}</h3>
                         <div class="card-tools">
                         </div>
                     </div>

@@ -6,13 +6,12 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>My Subject</h1>
+                        <h1>My Subject(Class-{{ $mySubjects->first()->class_name }})</h1>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
         </section>
         <!-- /.content-header -->
-
         <!-- Main content -->
         <section class="content">
             <div class="container-fluid">

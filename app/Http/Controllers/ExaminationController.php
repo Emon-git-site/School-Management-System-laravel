@@ -152,4 +152,36 @@ class ExaminationController extends Controller
             return redirect()->back();
         }
     }
+
+    // student side
+    public function MyExamTimetable(Request $request)
+    {
+        $class_id = Auth::user()->classe_id;
+        $getExams = ExamSchedulModel::getExam($class_id);
+        $result = array();
+        foreach($getExams as $getExam)
+        {
+            $dataE = array();
+            $dataE['exam_name'] = $getExam->exam_name;
+            $getExamTimetables = ExamSchedulModel::getExamTimetable($getExam->exam_id, $getExam->class_id);
+            $resultS = array();
+            foreach($getExamTimetables as $getExamTimetable)
+            {
+                $dataS = array();
+                $dataS['subject_name'] = $getExamTimetable->subject_name;
+                $dataS['exam_date'] = $getExamTimetable->exam_date;
+                $dataS['start_time'] = $getExamTimetable->start_time;
+                $dataS['end_time'] = $getExamTimetable->end_time;
+                $dataS['room_number'] = $getExamTimetable->room_number;
+                $dataS['full_marks'] = $getExamTimetable->full_marks;
+                $dataS['passing_marks'] = $getExamTimetable->passing_marks;
+                $resultS[] = $dataS;
+            }
+            $dataE['exam'] = $resultS;
+            $result[] = $dataE;
+        }
+        $data['exam_timetables'] = $result;
+        $data['header_title'] = 'My Exam Timetable';
+        return view('student.my_exam_timetable', $data);
+    }
 }

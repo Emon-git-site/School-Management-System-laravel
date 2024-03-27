@@ -63,7 +63,7 @@ class  Class_subject extends Model
 
     static public function mySubjectName($class_id)
     {
-        return  self::select('class_subjects.*', 'subjects.name as subject_name', 'subjects.type as subject_type')
+        return  self::select('class_subjects.*', 'subjects.name as subject_name', 'subjects.type as subject_type', 'classes.name as class_name')
             ->join('classes', 'classes.id', 'class_subjects.classe_id')
             ->join('subjects', 'subjects.id', 'class_subjects.subject_id')
             ->join('users', 'users.id', 'class_subjects.created_by')
