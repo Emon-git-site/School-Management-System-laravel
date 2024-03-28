@@ -5,8 +5,8 @@
         <section class="content-header">
             <div class="container-fluid">
                 <div class="row mb-2">
-                    <div class="col-sm-6">
-                        <h1>Student Subject <span style="color: blue">({{ $student->name }} {{ $student->last_name }})</span></h1>
+                    <div class="col-sm-12">
+                        <h1>Student Subject(name: <span style="color: blue">{{ $student->name }} {{ $student->last_name }}</span>, Class-<span style="color: blue">{{ $mySubjects->first()->class_name }}</span>)</h1>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->

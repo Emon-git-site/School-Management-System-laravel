@@ -83,7 +83,8 @@
                                             <td>{{ $student->weight }}</td>
                                             <td>{{ date('d-m-Y h:i A', strtotime($student->created_at)) }}</td>
                                             <td>
-                                                 <a class="btn btn-primary btn-sm" href="{{ route('parent.my_student.subject', $student->id) }}">Subject</a>
+                                                 <a class="btn btn-success btn-sm" href="{{ route('parent.my_student.subject', $student->id) }}">Subject</a>
+                                                 <a class="btn btn-primary btn-sm" href="{{ route('parent.my_student.exam_timetable', $student->id) }}">Exam Timetable</a>
                                             </td>
                                         </tr>
                                     @endforeach

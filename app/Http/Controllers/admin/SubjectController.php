@@ -107,7 +107,6 @@ class SubjectController extends Controller
     }
 
     // parent side
-
     public function parentstudentSubject($student_id)
     {
          $student = User::getSingle($student_id);
