@@ -12,6 +12,7 @@ use App\Http\Controllers\admin\ClassController;
 use App\Http\Controllers\admin\SubjectController;
 use App\Http\Controllers\admin\Class_subjectController;
 use App\Http\Controllers\AssignClassTeacherController;
+use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\Class_TimeTableController;
 use App\Http\Controllers\ExaminationController;
 use App\Models\Assign_class_teacher;
@@ -147,6 +148,8 @@ Route::group(['middleware' => 'teacher'], function () {
 
     // my_class_subjec
     Route::get('teacher/my_class_subject', [AssignClassTeacherController::class, 'MyClassSubjectTeacher'])->name('teacher.my_class_subject');
+
+    // timetable
     Route::get('teacher/my_class_subject/class_timetable/{classe_id}/{subject_id}', [Class_TimeTableController::class, 'MyTimetableTeacher'])->name('teacher.my_class_subject.class_timetable');
     Route::get('teacher/my_exam_timetable', [ExaminationController::class, 'MyExamTimetableTeacher'])->name('teacher.my_exam_timetable');
 
@@ -169,8 +172,14 @@ Route::group(['middleware' => 'student'], function () {
 
     // subject
     Route::get('student/my_subject', [SubjectController::class, 'MySubjectStudent'])->name('student.my_subject');
+
+    // timetable
     Route::get('student/my_timetable', [Class_TimeTableController::class, 'MyTimetableStudent'])->name('student.my_timetable');
     Route::get('student/my_exam_timetable', [ExaminationController::class, 'MyExamTimetableStudent'])->name('student.my_exam_timetable');
+
+    // calendar
+    Route::get('student/my_calendar', [CalendarController::class, 'myCalendar'])->name('student.my_calendar');
+
 
     // password_change
     Route::get('student/change_password', [UserController::class, 'change_passwordShow'])->name('student.change_password.show');
@@ -191,6 +200,8 @@ Route::group(['middleware' => 'parent'], function () {
 
     Route::get('parent/my_student', [ParentController::class, 'myStudentParent'])->name('parent.my_student');
     Route::get('parent/my_student/subject/{student_id}', [SubjectController::class, 'parentstudentSubject'])->name('parent.my_student.subject');
+
+    // timetable
     Route::get('parent/my_student/exam_timetable/{student_id}', [ExaminationController::class, 'myStudentExamTimetableParent'])->name('parent.my_student.exam_timetable');
     Route::get('parent/my_student/subject/timetable/{classe_id}/{subject_id}/{student_id}', [Class_TimeTableController::class, 'MyTimetableParents'])->name('parent.my_student.subject.timetable');
 });
