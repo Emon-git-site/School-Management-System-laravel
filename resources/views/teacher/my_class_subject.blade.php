@@ -48,18 +48,25 @@
                                                 <td>{{ $myClassSubject->subject_type }}</td>
                                                 <td>
                                                     @php
-                                                    $class_subject = $myClassSubject->getMyTimeTable($myClassSubject->classe_id, $myClassSubject->subject_id);
-                                                @endphp
-                                                @if (!empty($class_subject))
-                                                    {{ date('h:i A', strtotime($class_subject->start_time)) }} to {{ date('h:i A', strtotime($class_subject->end_time)) }}
-                                                    <br>
-                                                    Room number: {{ $class_subject->room_number }}
-                                                @endif     
+                                                        $class_subject = $myClassSubject->getMyTimeTable(
+                                                            $myClassSubject->classe_id,
+                                                            $myClassSubject->subject_id,
+                                                        );
+                                                    @endphp
+                                                    @if (!empty($class_subject))
+                                                        {{ date('h:i A', strtotime($class_subject->start_time)) }} to
+                                                        {{ date('h:i A', strtotime($class_subject->end_time)) }}
+                                                        <br>
+                                                        Room number: {{ $class_subject->room_number }}
+                                                    @endif
                                                 </td>
                                                 <td>{{ date('d-m-Y h:i A', strtotime($myClassSubject->created_at)) }}</td>
                                                 <td>
-                                                    <a href="{{ route('teacher.my_class_subject.class_timetable', ['classe_id' => $myClassSubject->classe_id, 
-                                                    'subject_id' => $myClassSubject->subject_id]) }}"   class="btn btn-primary">My Class Timetable</a>
+                                                    <a href="{{ route('teacher.my_class_subject.class_timetable', [
+                                                        'classe_id' => $myClassSubject->classe_id,
+                                                        'subject_id' => $myClassSubject->subject_id,
+                                                    ]) }}"
+                                                        class="btn btn-primary">My Class Timetable</a>
                                                 </td>
                                             </tr>
                                         @endforeach

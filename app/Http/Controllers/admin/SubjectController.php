@@ -9,6 +9,7 @@ use PhpParser\Node\Expr\FuncCall;
 use App\Models\admin\Class_subject;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use App\Models\ClassSubjectTimetable;
 
 class SubjectController extends Controller
 {
@@ -76,7 +77,31 @@ class SubjectController extends Controller
     // student side
     public function MySubjectStudent()
     {
-        $data['mySubjects'] = Class_subject::mySubjectName(Auth::user()->classe_id);
+        $mySubjects = Class_subject::mySubjectName(Auth::user()->classe_id);
+        $subjectSchedule =array();
+        foreach($mySubjects as $mySubject)
+        {
+            $dataS = array();
+            $dataS['subject_id'] = $mySubject->subject_id;
+            $dataS['subject_name'] = $mySubject->subject_name;
+            $dataS['subject_type'] = $mySubject->subject_type;
+            $dataS['class_name'] = $mySubject->class_name;
+            $subjectTimetables = ClassSubjectTimetable::subjectTimetable($mySubject->subject_id, Auth::user()->classe_id);
+
+            $subejectTimetableArray = array();
+            foreach($subjectTimetables as $subjectTimetable)
+            {
+                $dataT = array();
+                $dataT['start_time'] = $subjectTimetable->start_time;
+                $dataT['end_time'] = $subjectTimetable->end_time;
+                $dataT['room_number'] = $subjectTimetable->room_number;
+                $subejectTimetableArray[] = $dataT;
+            }
+
+            $dataS['subject_timetable'] = $subejectTimetableArray;
+            $subjectSchedule[] = $dataS;
+        }
+        $data['mySubjects'] = $subjectSchedule;
         $data['header_title'] = 'My Subject';
         return view('student.my_subject', $data);
     }

@@ -6,7 +6,7 @@
             <div class="container-fluid">
                 <div class="row mb-2">
                     <div class="col-sm-6">
-                        <h1>My Subject(Class-{{ $mySubjects->first()->class_name }})</h1>
+                        <h1>My Subject(Class-{{$mySubjects[0]['class_name']; }})</h1>
                     </div>
                 </div>
             </div><!-- /.container-fluid -->
@@ -26,13 +26,24 @@
                                         <tr>
                                             <th>Subject Name</th>
                                             <th>Subject Type</th>
+                                            <th>My Class Timetable Today</th>
                                         </tr>
                                     </thead>
                                     <tbody>
                                         @foreach ($mySubjects as $mySubject)
                                         <tr>
-                                            <td>{{ $mySubject->subject_name }}</td>
-                                            <td>{{ $mySubject->subject_type }}</td>
+                                            <td>{{ $mySubject['subject_name'] }}</td>
+                                            <td>{{ $mySubject['subject_type'] }}</td>
+                                            <td>
+                                                @if(!empty($mySubject['subject_timetable']))
+                                                @foreach ($mySubject['subject_timetable'] as $subjectTimeatable)
+                                                {{ date('h:i A', strtotime($subjectTimeatable['start_time'])) }} to
+                                                {{ date('h:i A', strtotime($subjectTimeatable['end_time'])) }}
+                                                <br>
+                                                Room number: {{ $subjectTimeatable['room_number'] }}
+                                                @endforeach
+                                                @endif
+                                            </td>
                                         </tr>
                                         @endforeach
                                     </tbody>
