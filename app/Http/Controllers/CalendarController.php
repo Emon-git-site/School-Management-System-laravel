@@ -16,7 +16,7 @@ class CalendarController extends Controller
         $mySubjects = Class_subject::mySubjectName(Auth::user()->classe_id);
         foreach($mySubjects as $mySubject)
         {
-            $data['subject_name'] = $mySubject->subject_name;
+            $dataS['subject_name'] = $mySubject->subject_name;
             $getWeeks = WeekModel1::getWeekRecord();
             $week = array();
             foreach($getWeeks as $getWeek)
@@ -33,8 +33,8 @@ class CalendarController extends Controller
                     $week[] = $dataW;
                 }
             }
-            $data['week'] = $week;
-            $result[] = $data;
+            $dataS['week'] = $week;
+            $result[] = $dataS;
         }
         $data['getMyTimetable'] = $result;
         $data['header_title'] = 'My Calendar';
