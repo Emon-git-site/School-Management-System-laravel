@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\WeekModel1;
 use Illuminate\Http\Request;
+use App\Models\ExamSchedulModel;
 use App\Models\admin\Class_subject;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ClassSubjectTimetable;
@@ -12,8 +13,45 @@ class CalendarController extends Controller
 {
     public function myCalendar()
     {
+        $data['getMyTimetable'] = $this->getTimetable(Auth::user()->classe_id);
+        $data['getExamTimetable'] = $this->getExamTimetable(Auth::user()->classe_id);
+        // dd($data['getExamTimetable']);
+        $data['header_title'] = 'My Calendar';
+        return view('student.my_calendar', $data);
+    }
+
+    public function getExamTimetable($class_id)
+    {
+        $getExams = ExamSchedulModel::getExam($class_id);
         $result = array();
-        $mySubjects = Class_subject::mySubjectName(Auth::user()->classe_id);
+        foreach($getExams as $getExam)
+        {
+            $dataE = array();
+            $dataE['exam_name'] = $getExam->exam_name;
+            $getExamTimetables = ExamSchedulModel::getExamTimetable($getExam->exam_id, $getExam->class_id);
+            $resultS = array();
+            foreach($getExamTimetables as $getExamTimetable)
+            {
+                $dataS = array();
+                $dataS['subject_name'] = $getExamTimetable->subject_name;
+                $dataS['exam_date'] = $getExamTimetable->exam_date;
+                $dataS['start_time'] = $getExamTimetable->start_time;
+                $dataS['end_time'] = $getExamTimetable->end_time;
+                $dataS['room_number'] = $getExamTimetable->room_number;
+                $dataS['full_marks'] = $getExamTimetable->full_marks;
+                $dataS['passing_marks'] = $getExamTimetable->passing_marks;
+                $resultS[] = $dataS;
+            }
+            $dataE['exam'] = $resultS;
+            $result[] = $dataE;
+        }
+        return $result;
+    }
+
+    public function getTimetable($class_id)
+    {
+        $result = array();
+        $mySubjects = Class_subject::mySubjectName($class_id);
         foreach($mySubjects as $mySubject)
         {
             $dataS['subject_name'] = $mySubject->subject_name;
@@ -36,8 +74,6 @@ class CalendarController extends Controller
             $dataS['week'] = $week;
             $result[] = $dataS;
         }
-        $data['getMyTimetable'] = $result;
-        $data['header_title'] = 'My Calendar';
-        return view('student.my_calendar', $data);
+        return $result;
     }
 }
