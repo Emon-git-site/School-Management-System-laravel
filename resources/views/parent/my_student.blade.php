@@ -85,13 +85,14 @@
                                             <td>
                                                  <a class="btn btn-success btn-sm" href="{{ route('parent.my_student.subject', $student->id) }}">Subject</a>
                                                  <a class="btn btn-primary btn-sm" href="{{ route('parent.my_student.exam_timetable', $student->id) }}">Exam Timetable</a>
+                                                 <a class="btn btn-secondary btn-sm" href="{{ route('parent.my_student.calendar', $student->id) }}">Calendar</a>
                                             </td>
                                         </tr>
                                     @endforeach
                                     </tbody>
                                 </table>
 
-                            </div>
+                            </div>                                               
                             <!-- /.card-body -->
                         </div>
                         <!-- /.card -->

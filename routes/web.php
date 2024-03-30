@@ -178,7 +178,7 @@ Route::group(['middleware' => 'student'], function () {
     Route::get('student/my_exam_timetable', [ExaminationController::class, 'MyExamTimetableStudent'])->name('student.my_exam_timetable');
 
     // calendar
-    Route::get('student/my_calendar', [CalendarController::class, 'myCalendar'])->name('student.my_calendar');
+    Route::get('student/my_calendar', [CalendarController::class, 'myCalendarStudent'])->name('student.my_calendar');
 
 
     // password_change
@@ -204,4 +204,7 @@ Route::group(['middleware' => 'parent'], function () {
     // timetable
     Route::get('parent/my_student/exam_timetable/{student_id}', [ExaminationController::class, 'myStudentExamTimetableParent'])->name('parent.my_student.exam_timetable');
     Route::get('parent/my_student/subject/timetable/{classe_id}/{subject_id}/{student_id}', [Class_TimeTableController::class, 'MyTimetableParents'])->name('parent.my_student.subject.timetable');
+
+    // calendar
+    Route::get('parent/my_student/calendar/{student_id}', [CalendarController::class, 'myStudentCalendarParent'])->name('parent.my_student.calendar');
 });

@@ -10,6 +10,7 @@ use App\Models\admin\Subject;
 use App\Models\admin\Class_subject;
 use Illuminate\Support\Facades\Auth;
 use App\Models\ClassSubjectTimetable;
+use PhpParser\Node\Expr\FuncCall;
 
 class Class_TimeTableController extends Controller
 {
@@ -195,4 +196,5 @@ class Class_TimeTableController extends Controller
         $data['header_title'] = 'MY Timetable';
         return view('parent.my_timetable', $data);
     }
+
 }
